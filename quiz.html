@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار معلم الشام - احصل على خصم خاص</title>
+    <link rel="stylesheet" href="quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-content">
+            <h2>اختبر معلوماتك عن معلم الشام واستلم عرضك الخاص</h2>
+            
+            <div class="attempts-info">
+                <i class="fas fa-info-circle"></i>
+                <span>لديك <strong id="remaining-attempts">3</strong> محاولات متبقية اليوم</span>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <div class="progress-text">
+                    السؤال <span id="current-question">1</span> من <span id="total-questions">5</span>
+                </div>
+            </div>
+
+            <div id="question-container">
+                <h3 id="question"></h3>
+                <div class="options">
+                    <button class="option" data-index="0"></button>
+                    <button class="option" data-index="1"></button>
+                    <button class="option" data-index="2"></button>
+                    <button class="option" data-index="3"></button>
+                </div>
+            </div>
+
+            <div id="result-container" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- الأصوات التفاعلية -->
+    <audio id="correctSound" src="https://assets.mixkit.co/active_storage/sfx/2190/2190-preview.mp3" preload="auto"></audio>
+    <audio id="wrongSound" src="https://assets.mixkit.co/active_storage/sfx/2194/2194-preview.mp3" preload="auto"></audio>
+    <audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" preload="auto"></audio>
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <!-- Watermark Logo -->
+    <div class="background-logo"></div>
+
+    <!-- المكتبات المطلوبة -->
+    <script src="html2canvas.min.js"></script>
+    <script src="quiz.js"></script>
+</body>
+</html>
