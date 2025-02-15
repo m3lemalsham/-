@@ -127,3 +127,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Count Down Timer
+function startCountdown(minutes) {
+    const countdownElement = document.getElementById('countdown');
+    const minutesElement = document.getElementById('minutes');
+    const secondsElement = document.getElementById('seconds');
+    
+    let totalSeconds = minutes * 60;
+    
+    const countdownInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+            clearInterval(countdownInterval);
+            countdownElement.innerHTML = '<div class="expired">انتهت العروض!</div>';
+            // إخفاء العروض عند انتهاء الوقت
+            const offerCards = document.querySelectorAll('.offer-card');
+            offerCards.forEach(card => {
+                card.style.display = 'none';
+            });
+            return;
+        }
+        
+        const minutesLeft = Math.floor(totalSeconds / 60);
+        const secondsLeft = totalSeconds % 60;
+        
+        minutesElement.textContent = String(minutesLeft).padStart(2, '0');
+        secondsElement.textContent = String(secondsLeft).padStart(2, '0');
+        
+        totalSeconds--;
+    }, 1000);
+}
+
+// بدء العد التنازلي عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    startCountdown(18); // 18 دقيقة حتى الساعة 10 مساءً بتوقيت مصر
+});

@@ -13,6 +13,9 @@
     <link rel="icon" type="image/png" href="images/logo.png">
     <title>معلم الشام - مطعم عربي أصيل</title>
     
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3047116489558029" crossorigin="anonymous"></script>
+    
     <!-- Preconnect to required origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,10 +55,30 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>أهلاً بكم في معلم الشام</h1>
-            <p>نقدم لكم أشهى المأكولات العربية الأصيلة</p>
+            <p>نقدم لكم أشهى فلافل شامية </p>
             <a href="#menu" class="cta-button">استعرض القائمة</a>
         </div>
     </section>
+
+    <section id="offers" class="offers-section">
+        <h2>عروض معلم الشام</h2>
+        <div class="offers-grid">
+            <div class="offer-card">
+                <span class="offer-label">عرض الأسبوع</span>
+                <img src="images/صحن فلافل عربي مشكل-صغير.jpg" alt="عرض السندويتشات" class="offer-image">
+                <div class="offer-content">
+                    <h3 class="offer-title">عرض صحن فلافل مشكل صغير</h3>
+                    <p class="offer-description">اشترِ 2 صحن فلافل عربي مشكل صغير واحصل على الثالث بنص سعر </p>
+                    <div class="offer-price">
+                        <del>40 ريال</del>
+                        <span class="new-price">33 ريال</span>
+                    </div>
+                    <a href="quiz.html?offer=images/ساندويش فلافل خبز تنوري.jpg" class="offer-button">احصل على العرض</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section id="menu" class="menu-section">
         <h2>قائمة الطعام</h2>
@@ -238,47 +261,6 @@
         </div>
     </section>
 
-    <section id="offers" class="offers-section">
-        <h2>العروض الخاصة</h2>
-        <div class="offers-grid">
-            <div class="offer-card">
-                <span class="offer-label">عرض اليوم</span>
-                <img src="images/صحن فلافل عربي مشكل-كبير.jpg" alt="عرض الفلافل المشكل" class="offer-image">
-                <div class="offer-content">
-                    <h3 class="offer-title">وجبة فلافل مشكل عائلية</h3>
-                    <p class="offer-description">صحن فلافل عربي مشكل كبير مع المقبلات وسلطة خضار طازجة</p>
-                    <div class="offer-price">
-                    </div>
-                    <a href="quiz.html?offer=images/صحن فلافل عربي مشكل-كبير.jpg" class="offer-button">احصل على العرض</a>
-                </div>
-            </div>
-
-            <div class="offer-card">
-                <span class="offer-label">عرض الأسبوع</span>
-                <img src="images/ساندويش فلافل خبز تنوري.jpg" alt="عرض السندويتشات" class="offer-image">
-                <div class="offer-content">
-                    <h3 class="offer-title">عرض السندويتشات</h3>
-                    <p class="offer-description">اشترِ 3 سندويتشات واحصل على الرابع مجاناً مع مشروب غازي</p>
-                    <div class="offer-price">
-                    </div>
-                    <a href="quiz.html?offer=images/ساندويش فلافل خبز تنوري.jpg" class="offer-button">احصل على العرض</a>
-                </div>
-            </div>
-
-            <div class="offer-card">
-                <span class="offer-label">عرض خاص</span>
-                <img src="images/علبة حمص.jpg" alt="عرض المقبلات" class="offer-image">
-                <div class="offer-content">
-                    <h3 class="offer-title">عرض المقبلات المميز</h3>
-                    <p class="offer-description">حمص + مخلل + بطاطس مقلية مع خبز تنوري طازج السوري الذيذة</p>
-                    <div class="offer-price">
-                    </div>
-                    <a href="quiz.html?offer=images/علبة حمص.jpg" class="offer-button">احصل على العرض</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="services" class="services-section" role="region" aria-labelledby="services-title">
         <h2 id="services-title">خدماتنا</h2>
         <div class="services-grid">
@@ -314,8 +296,8 @@
 
             <div class="service-card" role="article" aria-labelledby="track-order-title">
                 <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                <h3 id="track-order-title">تتبع طلبك</h3>
-                <p class="service-description">تابع حالة طلبك مباشرة عبر الواتساب</p>
+                <h3 id="track-order-title">اطلب طلبك</h3>
+                <p class="service-description">اطلب  طلبك مباشرة عبر الواتساب</p>
                 <div class="service-features" role="list">
                     <span role="listitem"><i class="fas fa-map-marked" aria-hidden="true"></i> معرفة موقع طلبك</span>
                     <span role="listitem"><i class="fas fa-clock" aria-hidden="true"></i> تحديثات فورية</span>
@@ -323,9 +305,9 @@
                        class="whatsapp-track" 
                        target="_blank"
                        rel="noopener"
-                       aria-label="تتبع طلبك عبر الواتساب">
+                       aria-label="اطلب طلبك عبر الواتساب">
                         <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        تتبع عبر الواتساب
+                        اطلب عبر الواتساب
                     </a>
                 </div>
             </div>
@@ -341,7 +323,7 @@
                     </li>
                     <li role="listitem">
                         <i class="fas fa-check-circle" aria-hidden="true"></i>
-                        <span>توصيل سريع خلال 30-45 دقيقة</span>
+                        <span>توصيل سريع خلال 45-60 دقيقة</span>
                     </li>
                     <li role="listitem">
                         <i class="fas fa-check-circle" aria-hidden="true"></i>
@@ -362,7 +344,7 @@
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>نقدم خدمة التوصيل لجميع أحياء ينبع البحر والمناطق المجاورة</p>
+                            <p>نقدم خدمة التوصيل لجميع أحياء ينبع البحر </p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -371,7 +353,7 @@
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>يصلك طلبك خلال 30-45 دقيقة من وقت تأكيد الطلب</p>
+                            <p>يصلك طلبك خلال 45-60 دقيقة من وقت تأكيد الطلب</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -380,7 +362,7 @@
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>نعم، نقبل الدفع النقدي عند الاستلام وكذلك الدفع الإلكتروني</p>
+                            <p>نعم، نقبل الدفع النقدي عند الاستلام وكذلك الدفع شبكة</p>
                         </div>
                     </div>
                 </div>
@@ -419,12 +401,12 @@
                 <div class="schedule-item">
                     <i class="fas fa-sun"></i>
                     <h3>الفترة الصباحية</h3>
-                    <p>5:30 صباحاً - 11:30 صباحاً</p>
+                    <p>6:00 صباحاً - 12:30 صباحاً</p>
                 </div>
                 <div class="schedule-item">
                     <i class="fas fa-moon"></i>
                     <h3>الفترة المسائية</h3>
-                    <p>5:30 مساءً - 12:00 منتصف الليل</p>
+                    <p>5:00 مساءً - 12:30 منتصف الليل</p>
                 </div>
             </div>
         </div>
@@ -447,9 +429,8 @@
                 </div>
                 <div class="contact-info">
                     <i class="fas fa-clock"></i>
-                    <h3>ساعات العمل</h3>
-                    <p>5:30 صباحاً - 11:30 صباحاً</p>
-                    <p>5:30 مساءً - 12:00 منتصف الليل</p>
+                    <h3>البريد الاكتروني</h3>
+                    <p> <a href="mailto:m3lemalsham@gmail.com"target="_blank">m3lemalsham@gmail.com</a></p>
                 </div>
             </div>
             
@@ -457,13 +438,16 @@
                 <h3>تابعونا على وسائل التواصل الاجتماعي</h3>
                 <div class="social-icons">
                     <a href="https://www.snapchat.com/add/e3753315?share_id=Flx4vsl1OIo&locale=ar-SA" target="_blank" class="social-icon">
-                        <img src="images/SNAPCHAT .jpg" alt="Snapchat">
+                        <img src="images/snapchat.png" alt="Snapchat" class="social-img">
                     </a>
-                    <a href="https://www.hungerstation.com/" target="_blank" class="social-icon">
-                        <img src="images/HungerStation.png" alt="HungerStation">
+                    <a href="https://www.facebook.com/profile.php?id=61573374835399" target="_blank" class="social-icon">
+                        <img src="images/facebook.png" alt="Facebook" class="social-img">
+                    </a>
+                    <a href="https://www.instagram.com/m3lem.alsham" target="_blank" class="social-icon">
+                        <img src="images/instagram.png" alt="Instagram" class="social-img">
                     </a>
                     <a href="https://wa.me/966594872016" target="_blank" class="social-icon">
-                        <img src="images/whatsapp.png" alt="WhatsApp">
+                        <img src="images/whatsapp.png" alt="WhatsApp" class="social-img">
                     </a>
                 </div>
             </div>
@@ -471,7 +455,7 @@
     </section>
 
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2024 معلم الشام</p>
+        <p>جميع الحقوق محفوظة &copy; 2025 معلم الشام</p>
     </footer>
 
     <script src="script.js"></script>

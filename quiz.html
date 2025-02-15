@@ -2,10 +2,14 @@
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2d3436">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>اختبار معلم الشام - احصل على خصم خاص</title>
     <link rel="stylesheet" href="quiz.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -28,12 +32,9 @@
             </div>
 
             <div id="question-container">
-                <h3 id="question"></h3>
-                <div class="options">
-                    <button class="option" data-index="0"></button>
-                    <button class="option" data-index="1"></button>
-                    <button class="option" data-index="2"></button>
-                    <button class="option" data-index="3"></button>
+                <div class="question-content">
+                    <div id="question"></div>
+                    <div class="options-grid" id="options"></div>
                 </div>
             </div>
 
@@ -51,7 +52,10 @@
     <div class="background-logo"></div>
 
     <!-- المكتبات المطلوبة -->
-    <script src="html2canvas.min.js"></script>
-    <script src="quiz.js"></script>
+    <link rel="preload" as="script" href="quiz.js">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/tajawal/v9/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2" crossorigin>
+
+    <script defer src="quiz.js"></script>
 </body>
 </html>
