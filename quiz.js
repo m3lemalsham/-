@@ -264,8 +264,6 @@ function showResults() {
     }
 
     const currentDate = formatDate();
-    const endTimeFormatted = formatEndTime(endTime);
-    const timeRemaining = formatTimeRemaining(endTime);
     
     resultContainer.innerHTML = `
         <div class="result-container ${resultClass}">
@@ -279,14 +277,6 @@ function showResults() {
                     <i class="fas fa-calendar-alt"></i>
                     <span>اليوم والوقت: ${currentDate}</span>
                 </div>
-                <div class="expire-time">
-                    <i class="fas fa-hourglass-end"></i>
-                    <span>ينتهي في: ${endTimeFormatted}</span>
-                </div>
-                <div class="remaining-time">
-                    <i class="fas fa-clock"></i>
-                    <span>المدة المتبقية: ${timeRemaining}</span>
-                </div>
             </div>
 
             <div class="score-details">
@@ -295,31 +285,6 @@ function showResults() {
                     <span class="total-questions">/4</span>
                 </div>
                 <p class="percentage">${percentage}%</p>
-            </div>
-            
-            <div class="coupon-container shine-effect">
-                <h3>🎁 كود الخصم الخاص بك:</h3>
-                <div class="coupon-code">MOALEM2024</div>
-                <div class="timer-container">
-                    <div class="timer-block">
-                        <span class="timer-value" id="hours">00</span>
-                        <span class="timer-label">ساعة</span>
-                    </div>
-                    <div class="timer-separator">:</div>
-                    <div class="timer-block">
-                        <span class="timer-value" id="minutes">00</span>
-                        <span class="timer-label">دقيقة</span>
-                    </div>
-                    <div class="timer-separator">:</div>
-                    <div class="timer-block">
-                        <span class="timer-value" id="seconds">00</span>
-                        <span class="timer-label">ثانية</span>
-                    </div>
-                </div>
-                <button class="copy-coupon" onclick="copyCode()">
-                    <i class="fas fa-copy"></i>
-                    نسخ الكود
-                </button>
             </div>
             
             <div class="buttons-container">
@@ -337,9 +302,6 @@ function showResults() {
             </div>
         </div>
     `;
-
-    startConfetti();
-    startCountdown();
 }
 
 function startConfetti() {
@@ -386,37 +348,6 @@ function getTimeRemaining(endtime) {
         minutes,
         seconds
     };
-}
-
-function startCountdown() {
-    const countdownTimer = setInterval(() => {
-        const timeLeft = getTimeRemaining(endTime);
-        
-        document.getElementById('hours').textContent = String(timeLeft.hours).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(timeLeft.minutes).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(timeLeft.seconds).padStart(2, '0');
-
-        if (timeLeft.total <= 0) {
-            clearInterval(countdownTimer);
-            document.querySelector('.timer-container').innerHTML = '<div class="expired">انتهت صلاحية الكود</div>';
-            document.querySelector('.copy-coupon').disabled = true;
-            document.querySelector('.copy-coupon').style.opacity = '0.5';
-        }
-    }, 1000);
-}
-
-function copyCode() {
-    const code = 'MOALEM2024';
-    navigator.clipboard.writeText(code).then(() => {
-        const copyButton = document.querySelector('.copy-coupon');
-        copyButton.innerHTML = '<i class="fas fa-check"></i> تم النسخ';
-        copyButton.classList.add('copied');
-        
-        setTimeout(() => {
-            copyButton.innerHTML = '<i class="fas fa-copy"></i> نسخ الكود';
-            copyButton.classList.remove('copied');
-        }, 2000);
-    });
 }
 
 function restartQuiz() {
