@@ -36,6 +36,7 @@
         </div>
         <div class="nav-links">
             <a href="#home" class="active">الرئيسية</a>
+            <a href="#offers">العروض</a>
             <a href="#menu">قائمة الطعام</a>
             <a href="#services">خدماتنا</a>
             <a href="#hours">مواعيد العمل</a>
@@ -55,6 +56,33 @@
             <a href="#menu" class="cta-button">استعرض القائمة</a>
         </div>
     </section>
+
+    <section id="offers" class="offers-section">
+        <h2>عروض معلم الشام</h2>
+        <!-- العرض الاسبوعي  -->
+        <div class="offers-grid">
+            <div class="offer-card">
+                <span class="offer-label">عرض الأسبوع</span>
+                <img src="images/صحن فلافل عربي مشكل-صغير.jpg" alt="عرض السندويتشات" class="offer-image">
+                <div class="offer-content">
+                    <h3 class="offer-title">عرض صحن فلافل مشكل صغير</h3>
+                    <p class="offer-description">اشترِ 2 صحن فلافل عربي مشكل صغير واحصل على الثالث بنص سعر </p>
+                    <div class="offer-price">
+                        <del>40 ريال</del>
+                        <span class="new-price">33 ريال</span>
+                    </div>
+                    <a href="quiz.html?offer=images/ساندويش فلافل خبز تنوري.jpg" class="offer-button">احصل على العرض</a>
+                </div>
+            </div>
+        </div>
+        <!-- إضافة العداد التنازلي -->
+        <div class="offers-countdown">
+            <h3>العرض ينتهي خلال</h3>
+            <div class="countdown"></div>
+            <div class="expired-message">انتهى العرض! ترقبوا عروضنا القادمة</div>
+        </div>
+    </section>
+
 
     <section id="menu" class="menu-section">
         <h2>قائمة الطعام</h2>
@@ -213,25 +241,25 @@
                     <img src="images/كينزا برتقال.jpg" alt="كينزا برتقال">
                     <h3>كينزا برتقال</h3>
                     <p class="description">مشروب سعودي بنكهة برتقال المنعشة</p>
-                    <span class="price">3 </span>
+                    <span class="price">2.5 </span>
                 </div>
                 <div class="menu-item">
                     <img src="images/كينزا حمضيات.jpg" alt="كينزا حمضيات">
                     <h3>كينزا حمضيات</h3>
                     <p class="description">مشروب سعودي بنكهة الحمضيات المنعشة</p>
-                    <span class="price">3 </span>
+                    <span class="price">2.5 </span>
                 </div>
                 <div class="menu-item">
                     <img src="images/كينزا سفن.jpg" alt="كينزا سفن">
                     <h3>كينزا سفن</h3>
                     <p class="description">مشروب سعودي بنكهة سفن المنعش</p>
-                    <span class="price">3 </span>
+                    <span class="price">2.5 </span>
                 </div>
                 <div class="menu-item">
                     <img src="images/كينزا كولا.jpg" alt="كينزا كولا">
                     <h3>كينزا كولا</h3>
                     <p class="description">مشروب سعودي بنكهة كولا المنعش</p>
-                    <span class="price">3 </span>
+                    <span class="price">2.5 </span>
                 </div>
             </div>
         </div>
@@ -240,6 +268,24 @@
     <section id="services" class="services-section" role="region" aria-labelledby="services-title">
         <h2 id="services-title">خدماتنا</h2>
         <div class="services-grid">
+            <div class="service-card" role="article" aria-labelledby="track-order-title">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                <h3 id="track-order-title">اطلب طلبك</h3>
+                <p class="service-description">اطلب  طلبك مباشرة عبر الواتساب</p>
+                <div class="service-features" role="list">
+                    <span role="listitem"><i class="fas fa-map-marked" aria-hidden="true"></i> معرفة موقع طلبك</span>
+                    <span role="listitem"><i class="fas fa-clock" aria-hidden="true"></i> تحديثات فورية</span>
+                    <a href="https://wa.me/966594872016" 
+                       class="whatsapp-track" 
+                       target="_blank"
+                       rel="noopener"
+                       aria-label="اطلب طلبك عبر الواتساب">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        اطلب عبر الواتساب
+                    </a>
+                </div>
+            </div>
+
             <div class="service-card" role="article" aria-labelledby="delivery-title">
                 <i class="fas fa-motorcycle" aria-hidden="true"></i>
                 <h3 id="delivery-title">خدمة التوصيل</h3>
@@ -267,24 +313,6 @@
                 <div class="service-features" role="list">
                     <span role="listitem"><i class="fas fa-shield-virus" aria-hidden="true"></i> معايير صحية</span>
                     <span role="listitem"><i class="fas fa-head-side-mask" aria-hidden="true"></i> حماية كاملة</span>
-                </div>
-            </div>
-
-            <div class="service-card" role="article" aria-labelledby="track-order-title">
-                <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                <h3 id="track-order-title">اطلب طلبك</h3>
-                <p class="service-description">اطلب  طلبك مباشرة عبر الواتساب</p>
-                <div class="service-features" role="list">
-                    <span role="listitem"><i class="fas fa-map-marked" aria-hidden="true"></i> معرفة موقع طلبك</span>
-                    <span role="listitem"><i class="fas fa-clock" aria-hidden="true"></i> تحديثات فورية</span>
-                    <a href="https://wa.me/966594872016" 
-                       class="whatsapp-track" 
-                       target="_blank"
-                       rel="noopener"
-                       aria-label="اطلب طلبك عبر الواتساب">
-                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        اطلب عبر الواتساب
-                    </a>
                 </div>
             </div>
         </div>

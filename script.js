@@ -127,3 +127,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// تكوين العداد التنازلي للعروض
+function updateCountdown() {
+    const countdownElement = document.querySelector('.countdown');
+    if (!countdownElement) return;
+
+    // تحديد موعد انتهاء العرض (الخميس القادم الساعة 12:30 صباحاً)
+    const now = new Date();
+    const targetDay = 4; // 4 = الخميس
+    let daysUntilTarget = targetDay - now.getDay();
+    if (daysUntilTarget <= 0) daysUntilTarget += 7;
+    
+    const target = new Date(now);
+    target.setDate(now.getDate() + daysUntilTarget);
+    target.setHours(0, 30, 0, 0); // 12:30 AM
+
+    const timeLeft = target - now;
+    
+    if (timeLeft < 0) {
+        document.querySelector('.offers-countdown').classList.add('expired');
+        return;
+    }
+
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    countdownElement.innerHTML = `
+        <div class="countdown-item">
+            <span>${String(days).padStart(2, '0')}</span>
+            <div class="label">يوم</div>
+        </div>
+        <div class="countdown-item">
+            <span>${String(hours).padStart(2, '0')}</span>
+            <div class="label">ساعة</div>
+        </div>
+        <div class="countdown-item">
+            <span>${String(minutes).padStart(2, '0')}</span>
+            <div class="label">دقيقة</div>
+        </div>
+        <div class="countdown-item">
+            <span>${String(seconds).padStart(2, '0')}</span>
+            <div class="label">ثانية</div>
+        </div>
+    `;
+}
+
+// تحديث العداد كل ثانية
+setInterval(updateCountdown, 1000);
+
+// تشغيل العداد فور تحميل الصفحة
+document.addEventListener('DOMContentLoaded', updateCountdown);

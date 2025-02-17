@@ -1360,18 +1360,6 @@ p {
     }
 }
 
-/* Remove offer and coupon related styles */
-.coupon-container,
-.coupon-code,
-.copy-coupon,
-.timer-container,
-.timer-block,
-.timer-value,
-.timer-label,
-.timer-separator,
-.expired {
-    display: none;
-}
 
 /* Keep only essential result styles */
 .result-container {
