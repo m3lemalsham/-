@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار معلم الشام</title>
+    <link rel="stylesheet" href="quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="quiz-container fade-in">
+        <div class="quiz-content">
+            <h2>اختبر معلوماتك واحصل على خصم خاص</h2>
+            <!-- Category selection menu -->
+            <div id="category-container">
+                <h3>اختر فئة الأسئلة</h3>
+                <div class="category-grid">
+                    <div class="category-btn" onclick="selectCategory('restaurant')">
+                        <div class="category-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="category-title">أسئلة عن المطعم</div>
+                        <div class="category-description">اختبر معرفتك بقائمة الطعام والأسعار والخدمات</div>
+                        <div class="category-stats">5 أسئلة</div>
+                    </div>
+                    <div class="category-btn" onclick="selectCategory('saudi')">
+                        <div class="category-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <div class="category-title">تاريخ السعودية</div>
+                        <div class="category-description">اختبر معرفتك بتاريخ وجغرافيا المملكة</div>
+                        <div class="category-stats">5 أسئلة</div>
+                    </div>
+                    <div class="category-btn" onclick="selectCategory('general')">
+                        <div class="category-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="category-title">معلومات عامة</div>
+                        <div class="category-description">اختبر معلوماتك العامة</div>
+                        <div class="category-stats">5 أسئلة</div>
+                    </div>
+                    <div class="category-btn" onclick="selectCategory('religious')">
+                        <div class="category-icon">
+                            <i class="fas fa-mosque"></i>
+                        </div>
+                        <div class="category-title">أسئلة دينية</div>
+                        <div class="category-description">اختبر معرفتك الدينية</div>
+                        <div class="category-stats">5 أسئلة</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Question container -->
+            <div id="question-container" style="display: none;">
+                <div class="question-header">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="question-counter">
+                        <span class="current"></span>
+                        <span class="total"></span>
+                    </div>
+                </div>
+                <div class="question-content">
+                    <div class="question-text"></div>
+                    <div class="image-container"></div>
+                    <div class="options-grid"></div>
+                </div>
+                
+                <!-- Facts Panel -->
+                <div class="facts-panel" style="display: none;">
+                    <div class="fact-title">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>هل تعلم؟</span>
+                    </div>
+                    <div class="fact-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Audio elements -->
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+    <audio id="correctSound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+    <audio id="wrongSound" src="https://assets.mixkit.co/active_storage/sfx/2001/2001-preview.mp3"></audio>
+    <audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
+    <script src="quiz.js"></script>
+</body>
+</html>

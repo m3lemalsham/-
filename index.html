@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="معلم الشام - مطعم عربي أصيل في ينبع البحر. نقدم أشهى المأكولات العربية مع خدمة توصيل سريعة وآمنة.">
+    <meta name="keywords" content="معلم الشام, مطعم, طعام عربي, ينبع البحر, توصيل طعام, مأكولات شامية">
+    <meta name="author" content="معلم الشام">
+    <meta property="og:title" content="معلم الشام - مطعم عربي أصيل">
+    <meta property="og:description" content="نقدم أشهى المأكولات العربية مع خدمة توصيل سريعة في ينبع البحر">
+    <meta property="og:image" content="images/logo.png">
+    <meta property="og:url" content="https://moalemalsham.com">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <title>معلم الشام - مطعم عربي أصيل</title>
+    <!-- Preconnect to required origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="images/صحن فلافل عربي مشكل-كبير.jpg" as="image">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" alt="معلم الشام لوقو" class="logo-img">
+            <h1>معلم الشام</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="active">الرئيسية</a>
+            <a href="#offers">العروض</a>
+            <a href="#menu">قائمة الطعام</a>
+            <a href="#services">خدماتنا</a>
+            <a href="#hours">مواعيد العمل</a>
+            <a href="#contact">اتصل بنا</a>
+        </div>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>أهلاً بكم في معلم الشام</h1>
+            <p>نقدم لكم أشهى فلافل شامية </p>
+            <a href="#menu" class="cta-button">استعرض القائمة</a>
+        </div>
+    </section>
+
+    <section id="offers" class="offers-section">
+        <h2>مسابقات معلم الشام</h2>
+        <!-- العرض الاسبوعي  -->
+        <div class="offers-grid">
+            <div class="offer-card">
+                <span class="offer-label">مسابقة الأسبوع</span>
+                <img src="images/صحن فلافل عربي مشكل-صغير.jpg" alt="عرض السندويتشات" class="offer-image">
+                <div class="offer-content">
+                    <h3 class="offer-title">عرض صحن فلافل مشكل صغير</h3>
+                    <p class="offer-description">اشترِ 2 صحن فلافل عربي مشكل صغير واحصل على الثالث بنص سعر </p>
+                    <div class="offer-price">
+                        <del>39 ريال</del>
+                        <span class="new-price">33 ريال</span>
+                    </div>
+                    <a href="quiz.html?offer=images/ساندويش فلافل خبز تنوري.jpg" class="offer-button">احصل على العرض</a>
+                </div>
+            </div>
+        </div>
+        <!-- إضافة العداد التنازلي -->
+        <div class="offers-countdown">
+            <h3>العرض ينتهي خلال</h3>
+            <div class="countdown"></div>
+            <div class="expired-message">انتهى العرض! ترقبوا عروضنا القادمة</div>
+        </div>
+    </section>
+
+
+    <section id="menu" class="menu-section">
+        <h2>قائمة الطعام</h2>
+        <div class="menu-categories">
+            <button class="menu-tab active" data-category="main">الأطباق الرئيسية</button>
+            <button class="menu-tab" data-category="sandwiches">السندويتشات</button>
+            <button class="menu-tab" data-category="desserts">الغربي</button>
+            <button class="menu-tab" data-category="sides">الأطباق الجانبية</button>
+            <button class="menu-tab" data-category="drinks">المشروبات</button>
+        </div>
+
+        <div class="menu-items" id="main">
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="images/صحن فلافل عربي مشكل-صغير.jpg" alt="صحن فلافل عربي مشكل صغير">
+                    <h3>صحن فلافل عربي مشكل - صغير</h3>
+                    <p class="description"> 1سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 4 حبة فلافل ـ  1 حبة بيض</p>
+                    <span class="price">13 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/صحن فلافل عربي مشكل-وسط.jpg" alt="صحن فلافل عربي مشكل وسط">
+                    <h3>صحن فلافل عربي مشكل - وسط</h3>
+                    <p class="description"> 2 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 7 حبة فلافل ـ 2 حبة بيض</p>
+                    <span class="price">20 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/صحن فلافل عربي مشكل-كبير.jpg" alt="صحن فلافل عربي مشكل كبير">
+                    <h3>صحن فلافل عربي مشكل - كبير</h3>
+                    <p class="description"> 4 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 8 حبة فلافل ـ 3 حبة بيض</p>
+                    <span class="price">30 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/صحن فلافل-صغير.jpg" alt="صحن فلافل صغير">
+                    <h3>صحن فلافل - صغير</h3>
+                    <p class="description">14 حبة فلافل ـ حمص ـ بطاطس ـ مخلل ـ 1 حبة بيض </p>
+                    <span class="price">13 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/صحن فلافل-وسط.jpg" alt="صحن فلافل وسط">
+                    <h3>صحن فلافل - وسط</h3>
+                    <p class="description">30 حبة فلافل ـ حمص ـ بطاطس ـ مخلل ـ 2 حبة بيض </p>
+                    <span class="price">20 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/صحن فلافل-كبير.jpg" alt="صحن فلافل كبير">
+                    <h3>صحن فلافل - كبير</h3>
+                    <p class="description">2 سندويش فلافل ـ 2 سندويش دجاج ـ حمص ـ مخلل ـ بطاطس ـ  8 حبة فلافل</p>
+                    <span class="price">40 </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-items" id="sandwiches" style="display: none;">
+            <div class="menu-grid">
+
+                <div class="menu-item">
+                    <img src="images/ساندويش فلافل خبز شامي .jpg" alt="ساندويش فلافل خبز شامي">
+                    <h3>ساندويش فلافل خبز شامي</h3>
+                    <p class="description">فلافل تقليدية في خبز شامي أصيل</p>
+                    <span class="price">4 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/ساندويش فلافل خبز شامي مع بيض.jpg" alt="ساندويش فلافل خبز شامي مع بيض">
+                    <h3>ساندويش فلافل خبز شامي مع بيض</h3>
+                    <p class="description">فلافل مع بيض في خبز شامي</p>
+                    <span class="price">5 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/ساندويش فلافل خبز تنوري.jpg" alt="ساندويش فلافل خبز تنوري">
+                    <h3>ساندويش فلافل خبز تنوري</h3>
+                    <p class="description">فلافل طازجة مع خضار في خبز تنوري</p>
+                    <span class="price">6 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/ساندويش فلافل خبز تنوري مع بيض.jpg" alt="ساندويش فلافل خبز تنوري مع بيض">
+                    <h3>ساندويش فلافل خبز تنوري مع بيض</h3>
+                    <p class="description">فلافل مع بيض في خبز تنوري</p>
+                    <span class="price">7 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/كساديا فلافل.jpg" alt="كساديا فلافل">
+                    <h3>كساديا فلافل</h3>
+                    <p class="description">كساديا محشوة بالفلافل </p>
+                    <span class="price">10 </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-items" id="desserts" style="display: none;">
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="images/سندويـش فاهيتا.jpg" alt="سندويش فاهيتا">
+                    <h3>سندويش فاهيتا</h3>
+                    <p class="description">فاهيتا شهية مع صلصة خاصة</p>
+                    <span class="price">12 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/سندويش كريسبي.jpg" alt="سندويش كريسبي">
+                    <h3>سندويش كريسبي</h3>
+                    <p class="description">دجاج كريسبي مقرمش مع صلصة خاصة</p>
+                    <span class="price">12 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/سندويش مكسيكي.jpg" alt="سندويش مكسيكي">
+                    <h3>سندويش مكسيكي</h3>
+                    <p class="description">سندويش بنكهة مكسيكية حارة</p>
+                    <span class="price">12 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/بريتو إيطالي.jpg" alt="بريتو إيطالي">
+                    <h3>بريتو إيطالي</h3>
+                    <p class="description">بريتو بالطريقة الإيطالية</p>
+                    <span class="price">12 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/كساديا.jpg" alt="كساديا">
+                    <h3>كساديا</h3>
+                    <p class="description">كساديا مكسيكية بالجبن</p>
+                    <span class="price">12 </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-items" id="sides" style="display: none;">
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="images/علبة بطاطس.jpg" alt="علبة بطاطس">
+                    <h3>بطاطس مقلية</h3>
+                    <p class="description">بطاطس مقلية مقرمشة من خارج وطريه من داخل</p>
+                    <span class="price">6 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/علبة حمص.jpg" alt="علبة حمص">
+                    <h3>حمص</h3>
+                    <p class="description">حمص بطحينة على الطريقة الشامية مع زيت الزيتون</p>
+                    <span class="price">5 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/علبة مخلل.jpg" alt="علبة مخلل">
+                    <h3>مخلل مشكل</h3>
+                    <p class="description">تشكيلة من المخللات بالطريقتنا المتنوعة</p>
+                    <span class="price">3 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/فلافل 3 حبات.jpg" alt="فلافل 3 حبات">
+                    <h3>فلافل 3 حبات</h3>
+                    <p class="description">3 حبات فلافل مقرمشة</p>
+                    <span class="price">1 </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-items" id="drinks" style="display: none;">
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="images/كينزا برتقال.jpg" alt="كينزا برتقال">
+                    <h3>كينزا برتقال</h3>
+                    <p class="description">مشروب سعودي بنكهة برتقال المنعشة</p>
+                    <span class="price">2.5 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/كينزا حمضيات.jpg" alt="كينزا حمضيات">
+                    <h3>كينزا حمضيات</h3>
+                    <p class="description">مشروب سعودي بنكهة الحمضيات المنعشة</p>
+                    <span class="price">2.5 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/كينزا سفن.jpg" alt="كينزا سفن">
+                    <h3>كينزا سفن</h3>
+                    <p class="description">مشروب سعودي بنكهة سفن المنعش</p>
+                    <span class="price">2.5 </span>
+                </div>
+                <div class="menu-item">
+                    <img src="images/كينزا كولا.jpg" alt="كينزا كولا">
+                    <h3>كينزا كولا</h3>
+                    <p class="description">مشروب سعودي بنكهة كولا المنعش</p>
+                    <span class="price">2.5 </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section" role="region" aria-labelledby="services-title">
+        <h2 id="services-title">خدماتنا</h2>
+        <div class="services-grid">
+            <div class="service-card" role="article" aria-labelledby="track-order-title">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                <h3 id="track-order-title">اطلب طلبك</h3>
+                <p class="service-description">اطلب  طلبك مباشرة عبر الواتساب</p>
+                <div class="service-features" role="list">
+                    <span role="listitem"><i class="fas fa-map-marked" aria-hidden="true"></i> معرفة موقع طلبك</span>
+                    <span role="listitem"><i class="fas fa-clock" aria-hidden="true"></i> تحديثات فورية</span>
+                    <a href="https://wa.me/966594872016" 
+                       class="whatsapp-track" 
+                       target="_blank"
+                       rel="noopener"
+                       aria-label="اطلب طلبك عبر الواتساب">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        اطلب عبر الواتساب
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card" role="article" aria-labelledby="delivery-title">
+                <i class="fas fa-motorcycle" aria-hidden="true"></i>
+                <h3 id="delivery-title">خدمة التوصيل</h3>
+                <p class="service-description">توصيل سريع وآمن لجميع طلباتكم في أنحاء المدينة</p>
+                <div class="service-features" role="list">
+                    <span role="listitem"><i class="fas fa-clock" aria-hidden="true"></i> توصيل سريع</span>
+                    <span role="listitem"><i class="fas fa-map-marked-alt" aria-hidden="true"></i> تغطية شاملة</span>
+                </div>
+            </div>
+
+            <div class="service-card" role="article" aria-labelledby="car-service-title">
+                <i class="fas fa-car" aria-hidden="true"></i>
+                <h3 id="car-service-title">الإيصال إلى السيارة</h3>
+                <p class="service-description">نوصل طلبك مباشرة إلى سيارتك في موقف السيارات</p>
+                <div class="service-features" role="list">
+                    <span role="listitem"><i class="fas fa-parking" aria-hidden="true"></i> خدمة مريحة</span>
+                    <span role="listitem"><i class="fas fa-hand-holding" aria-hidden="true"></i> توصيل للسيارة</span>
+                </div>
+            </div>
+
+            <div class="service-card" role="article" aria-labelledby="contactless-title">
+                <i class="fas fa-hands-wash" aria-hidden="true"></i>
+                <h3 id="contactless-title">التسليم بدون تلامس</h3>
+                <p class="service-description">خدمة آمنة تضمن أعلى معايير السلامة والنظافة</p>
+                <div class="service-features" role="list">
+                    <span role="listitem"><i class="fas fa-shield-virus" aria-hidden="true"></i> معايير صحية</span>
+                    <span role="listitem"><i class="fas fa-head-side-mask" aria-hidden="true"></i> حماية كاملة</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="services-info">
+            <div class="delivery-info" role="region" aria-labelledby="delivery-info-title">
+                <h3 id="delivery-info-title">معلومات التوصيل</h3>
+                <ul class="delivery-features" role="list">
+                    <li role="listitem">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <span>تغطية شاملة لجميع أنحاء المدينة</span>
+                    </li>
+                    <li role="listitem">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <span>توصيل سريع خلال 45-60 دقيقة</span>
+                    </li>
+                    <li role="listitem">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <span>تتبع طلبك مباشرة عبر الواتساب</span>
+                    </li>
+                    <li role="listitem">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <span>دفع نقدي أو إلكتروني</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="delivery-faq">
+                <h3>الأسئلة الشائعة</h3>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>ما هي مناطق التوصيل المتاحة؟</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نقدم خدمة التوصيل لجميع أحياء ينبع البحر </p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>كم تستغرق مدة التوصيل؟</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>يصلك طلبك خلال 45-60 دقيقة من وقت تأكيد الطلب</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>هل يمكنني الدفع عند الاستلام؟</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>نعم، نقبل الدفع النقدي عند الاستلام وكذلك الدفع شبكة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الموقع -->
+    <section class="location-section" id="location">
+        <div class="location-container">
+            <i class="fas fa-map-marker-alt location-icon"></i>
+            <h2 class="location-title">موقعنا</h2>
+            <div class="location-details">
+                <p>نحن متواجدون في موقع مميز بينبع البحر، يسهل الوصول إلينا من جميع المناطق</p>
+            </div>
+            
+            <div class="location-features">
+                <div class="location-feature">
+                    <i class="fas fa-building"></i>
+                    <h4>العنوان</h4>
+                    <p>شارع رغد، طريق الملك عبدالعزيز، ينبع البحر، المملكة العربية السعودية</p>
+                </div>
+            </div>
+            
+            <a href="https://maps.app.goo.gl/nxmRX66yb8y5pBaC7" class="directions-button" target="_blank">
+                <i class="fas fa-directions"></i>
+                احصل على الاتجاهات عبر خرائط جوجل
+            </a>
+        </div>
+    </section>
+
+    <section id="hours" class="hours-section">
+        <h2>مواعيد العمل</h2>
+        <div class="hours-content">
+            <div class="schedule">
+                <div class="schedule-item">
+                    <i class="fas fa-sun"></i>
+                    <h3>الفترة الصباحية</h3>
+                    <p>6:00 صباحاً - 12:30 صباحاً</p>
+                </div>
+                <div class="schedule-item">
+                    <i class="fas fa-moon"></i>
+                    <h3>الفترة المسائية</h3>
+                    <p>5:00 مساءً - 12:30 منتصف الليل</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2>اتصل بنا</h2>
+        <div class="contact-container">
+            <div class="contact-info-grid">
+                <div class="contact-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>العنوان</h3>
+                    <p>شارع رغد، طريق الملك عبدالعزيز</p>
+                    <p>ينبع البحر، المملكة العربية السعودية</p>
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-phone"></i>
+                    <h3>اتصل بنا</h3>
+                    <p><a href="tel:+966594872016" dir="ltr">+966 594 872 016</a></p>
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-clock"></i>
+                    <h3>البريد الاكتروني</h3>
+                    <p> <a href="mailto:m3lemalsham@gmail.com"target="_blank">m3lemalsham@gmail.com</a></p>
+                </div>
+            </div>
+            
+            <div class="social-media">
+                <h3>تابعونا على وسائل التواصل الاجتماعي</h3>
+                <div class="social-icons">
+                    <a href="https://www.snapchat.com/add/e3753315?share_id=Flx4vsl1OIo&locale=ar-SA" target="_blank" class="social-icon">
+                        <img src="images/snapchat.png" alt="Snapchat" class="social-img">
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61573374835399" target="_blank" class="social-icon">
+                        <img src="images/facebook.png" alt="Facebook" class="social-img">
+                    </a>
+                    <a href="https://www.instagram.com/m3lemalsham/?next=%2Ffxcal%2Fdisclosure%2F" target="_blank" class="social-icon">
+                        <img src="images/instagram.png" alt="Instagram" class="social-img">
+                    </a>
+                    <a href="https://wa.me/966594872016" target="_blank" class="social-icon">
+                        <img src="images/whatsapp.png" alt="WhatsApp" class="social-img">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2025 معلم الشام</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
