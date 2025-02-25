@@ -16,7 +16,8 @@
 <body>
     <div class="quiz-container fade-in">
         <div class="quiz-content">
-            <h2>اختبر معلوماتك واحصل على خصم خاص</h2>
+            <h2>اختبر معلوماتك للحصول على خصم خاص</h2>
+            <p class="instructions">سيتم تسجيل وقت بداية ونهاية الاختبار. عند الانتهاء، يرجى تصوير النتيجة وإظهارها للكاشير في الفرع للحصول على الخصم.</p>
             <!-- Category selection menu -->
             <div id="category-container">
                 <h3>اختر فئة الأسئلة</h3>
@@ -27,7 +28,6 @@
                         </div>
                         <div class="category-title">أسئلة عن المطعم</div>
                         <div class="category-description">اختبر معرفتك بقائمة الطعام والأسعار والخدمات</div>
-                        <div class="category-stats">5 أسئلة</div>
                     </div>
                     <div class="category-btn" onclick="selectCategory('saudi')">
                         <div class="category-icon">
@@ -35,7 +35,6 @@
                         </div>
                         <div class="category-title">تاريخ السعودية</div>
                         <div class="category-description">اختبر معرفتك بتاريخ وجغرافيا المملكة</div>
-                        <div class="category-stats">5 أسئلة</div>
                     </div>
                     <div class="category-btn" onclick="selectCategory('general')">
                         <div class="category-icon">
@@ -43,7 +42,6 @@
                         </div>
                         <div class="category-title">معلومات عامة</div>
                         <div class="category-description">اختبر معلوماتك العامة</div>
-                        <div class="category-stats">5 أسئلة</div>
                     </div>
                     <div class="category-btn" onclick="selectCategory('religious')">
                         <div class="category-icon">
@@ -51,7 +49,6 @@
                         </div>
                         <div class="category-title">أسئلة دينية</div>
                         <div class="category-description">اختبر معرفتك الدينية</div>
-                        <div class="category-stats">5 أسئلة</div>
                     </div>
                 </div>
             </div>
@@ -81,8 +78,76 @@
                     <div class="fact-content"></div>
                 </div>
             </div>
+
+            <!-- Success Message and Coupon Section -->
+            <div id="success-container" style="display: none;">
+                <div class="success-animation">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>تهانينا! لقد أكملت الاختبار بنجاح</h3>
+                <div class="coupon-container">
+                    <div class="coupon-code" id="couponCode"></div>
+                    <button class="copy-coupon" onclick="copyCoupon()">
+                        <i class="fas fa-copy"></i>
+                        نسخ الكود
+                    </button>
+                </div>
+                
+                <!-- Redemption Instructions -->
+                <div class="redemption-instructions">
+                    <h4>كيفية استخدام الكود</h4>
+                    <div class="redemption-methods">
+                        <!-- In-Store Method -->
+                        <div class="redemption-method">
+                            <h5>
+                                <i class="fas fa-store"></i>
+                                استخدام في الفرع
+                            </h5>
+                            <ul>
+                                <li>
+                                    <i class="fas fa-camera"></i>
+                                    قم بتصوير شاشة النجاح مع الكود
+                                </li>
+                                <li>
+                                    <i class="fas fa-clock"></i>
+                                    تأكد من ظهور وقت انتهاء الاختبار في الصورة
+                                </li>
+                                <li>
+                                    <i class="fas fa-user"></i>
+                                    أظهر الصورة للكاشير عند الدفع
+                                </li>
+                            </ul>
+                            <p class="note">يجب استخدام الكود خلال مدة صلاحيته</p>
+                        </div>
+                        
+                        <!-- Delivery Method -->
+                        <div class="redemption-method">
+                            <h5>
+                                <i class="fas fa-motorcycle"></i>
+                                طلب عن بعد
+                            </h5>
+                            <ul>
+                                <li>
+                                    <i class="fab fa-whatsapp"></i>
+                                    تواصل معنا عبر واتساب
+                                </li>
+                                <li>
+                                    <i class="fas fa-image"></i>
+                                    أرسل صورة شاشة النجاح مع الكود
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    سيتم تأكيد الكود وتطبيق الخصم
+                                </li>
+                            </ul>
+                            <p class="note">تأكد من إرسال الصورة قبل انتهاء صلاحية الكود</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
     <!-- Audio elements -->
     <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
     <audio id="correctSound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>

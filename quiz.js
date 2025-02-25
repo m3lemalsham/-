@@ -13,8 +13,8 @@ const questions = {
             image: "images/صحن فلافل عربي مشكل-كبير.jpg"
         },
         {
-            question: "ما هو المشروب الأكثر طلباً في المطعم؟",
-            options: ["كينزا كولا", "كينزا برتقال", "كينزا سفن", "كينزا حمضيات"],
+            question: "ما هو المشروب المتوفر  في المطعم؟",
+            options: ["كينزا كولا", "عصير برتقال", "عصير ليمون", "عصير رمان"],
             correct: 0,
             image: "images/كينزا كولا.jpg"
         },
@@ -495,39 +495,40 @@ function restartQuiz() {
 // Helper functions for dates
 function formatDate() {
     const now = new Date();
-    return now.toLocaleDateString('ar-SA', { 
+    const options = { 
         weekday: 'long', 
         year: 'numeric', 
         month: 'long', 
         day: 'numeric',
         hour: '2-digit',
-        minute: '2-digit'
-    });
+        minute: '2-digit',
+        hour12: true
+    };
+    return now.toLocaleDateString('ar-SA', options).replace('،', '،\n');
 }
 
 function formatEndTime(date) {
-    return date.toLocaleTimeString('ar-SA', { 
+    const options = { 
         hour: '2-digit', 
-        minute: '2-digit' 
-    });
-}
-
-function formatTimeRemaining(endDate) {
-    const now = new Date();
-    const diff = endDate - now;
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    return `${hours} ساعة و ${minutes} دقيقة`;
+        minute: '2-digit',
+        hour12: true
+    };
+    return date.toLocaleTimeString('ar-SA', options);
 }
 
 function startCountdown(endDate) {
-    const countdown = setInterval(() => {
+    const updateTimer = () => {
         const now = new Date();
         const diff = endDate - now;
         
         if (diff <= 0) {
-            clearInterval(countdown);
-            document.querySelector('.timer-container').innerHTML = '<p>انتهت صلاحية الكود</p>';
+            document.querySelectorAll('.timer-block').forEach(block => {
+                block.style.background = 'rgba(255, 0, 0, 0.1)';
+                block.querySelector('.timer-value').style.color = '#ff4444';
+            });
+            document.querySelector('.timer-container').insertAdjacentHTML('afterend', 
+                '<p class="expired-message" style="color: #ff4444; text-align: center; margin-top: 1rem;">انتهت صلاحية الكود</p>'
+            );
             return;
         }
         
@@ -538,29 +539,30 @@ function startCountdown(endDate) {
         document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
         document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
         document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-    }, 1000);
-}
 
-// Confetti animation
-function startConfetti() {
-    for (let i = 0; i < 100; i++) {
-        createConfetti();
-    }
-}
+        // تحديث لون وأنماط العرض بناءً على الوقت المتبقي
+        const timerBlocks = document.querySelectorAll('.timer-block');
+        if (hours === 0) {
+            if (minutes < 30) {
+                timerBlocks.forEach(block => {
+                    block.style.background = 'rgba(255, 0, 0, 0.1)';
+                    block.querySelector('.timer-value').style.color = '#ff4444';
+                });
+            } else {
+                timerBlocks.forEach(block => {
+                    block.style.background = 'rgba(255, 165, 0, 0.1)';
+                    block.querySelector('.timer-value').style.color = '#ffa500';
+                });
+            }
+        }
+    };
 
-function createConfetti() {
-    const confetti = document.createElement('div');
-    confetti.className = 'confetti';
-    confetti.style.left = Math.random() * 100 + 'vw';
-    confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-    confetti.style.opacity = Math.random();
-    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-    
-    document.body.appendChild(confetti);
-    
-    confetti.addEventListener('animationend', () => {
-        confetti.remove();
-    });
+    // تحديث فوري ثم كل ثانية
+    updateTimer();
+    const countdown = setInterval(updateTimer, 1000);
+
+    // تنظيف الفاصل الزمني عند إزالة العنصر
+    window.addEventListener('beforeunload', () => clearInterval(countdown));
 }
 
 const customTips = {
@@ -641,58 +643,23 @@ function showResults() {
     const percentage = (score / numQuestions) * 100;
     const couponCode = generateCouponCode();
     
-    // Update progress before showing results
-    updateProgress(currentCategory, percentage);
-    
-    let resultMessage, resultClass;
-    if (percentage >= 80) {
-        resultMessage = 'ممتاز! أحسنت الإجابة 🎉';
-        resultClass = 'excellent';
-        playSound('success');
-    } else if (percentage >= 60) {
-        resultMessage = 'جيد! يمكنك التحسين 💪';
-        resultClass = 'good';
-        playSound('correct');
-    } else {
-        resultMessage = 'للأسف لم تنجح في الاختبار 😔';
-        resultClass = 'try-again';
-        playSound('wrong');
-    }
-
-    // Calculate statistics
-    const categoryStats = userProgress[currentCategory];
-    const averageScore = categoryStats.attempts > 0 
-        ? (categoryStats.totalCorrect / categoryStats.attempts).toFixed(1) 
-        : 0;
-
     const currentDate = formatDate();
     const expiryDate = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
     const endTimeFormatted = formatEndTime(expiryDate);
-    const timeRemaining = formatTimeRemaining(expiryDate);
-    
-    const tips = getCustomTips(currentCategory, percentage);
-    const progressStats = userProgress[currentCategory];
     
     if (percentage >= 60) {
         quizContent.innerHTML = `
-            <div class="result-container ${resultClass}">
-                <div class="success-animation">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h2 class="result-title">${resultMessage}</h2>
+            <div class="result-container excellent">
+                <h2 class="result-title">مبروك! لقد اجتزت الاختبار بنجاح 🎉</h2>
                 
                 <div class="date-time-container">
                     <div class="current-time">
                         <i class="fas fa-calendar-alt"></i>
-                        <span>اليوم والوقت: ${currentDate}</span>
+                        <span>${currentDate}</span>
                     </div>
                     <div class="expire-time">
                         <i class="fas fa-hourglass-end"></i>
                         <span>ينتهي في: ${endTimeFormatted}</span>
-                    </div>
-                    <div class="remaining-time">
-                        <i class="fas fa-clock"></i>
-                        <span>المدة المتبقية: ${timeRemaining}</span>
                     </div>
                 </div>
 
@@ -705,58 +672,63 @@ function showResults() {
                 </div>
                 
                 <div class="coupon-container shine-effect">
-                    <h3>🎁 كود الخصم الخاص بك:</h3>
-                    <div class="coupon-code">${couponCode}</div>
-                    <div class="timer-container">
-                        <div class="timer-block">
-                            <span class="timer-value" id="hours">02</span>
-                            <span class="timer-label">ساعة</span>
-                        </div>
-                        <div class="timer-separator">:</div>
-                        <div class="timer-block">
-                            <span class="timer-value" id="minutes">00</span>
-                            <span class="timer-label">دقيقة</span>
-                        </div>
-                        <div class="timer-separator">:</div>
-                        <div class="timer-block">
-                            <span class="timer-value" id="seconds">00</span>
-                            <span class="timer-label">ثانية</span>
-                        </div>
-                    </div>
+                    <h3>🎁 كود الخصم الخاص بك</h3>
+                    <div class="coupon-code" onclick="copyCode('${couponCode}')">${couponCode}</div>
                     <button class="copy-coupon" onclick="copyCode('${couponCode}')">
                         <i class="fas fa-copy"></i>
                         نسخ الكود
                     </button>
+                    <p class="expiry-note">* الكود صالح لمدة ساعتين من وقت إنشائه</p>
                 </div>
-                
-                <!-- Educational Summary -->
-                <div class="education-summary">
-                    <h3><i class="fas fa-graduation-cap"></i> ملخص تعليمي</h3>
-                    <div class="summary-content">
-                        <p>لقد تعلمت اليوم:</p>
-                        <ul class="learned-list">
-                            ${educationalFacts[currentCategory]
-                                .slice(0, 3)
-                                .map(fact => `<li><i class="fas fa-check"></i> ${fact}</li>`)
-                                .join('')}
-                        </ul>
-                    </div>
-                    
-                    <div class="recommended-resources">
-                        <h4><i class="fas fa-book-reader"></i> مصادر مقترحة للمزيد من التعلم</h4>
-                        <div class="resources-grid">
-                            ${learningResources[currentCategory]
-                                .map(resource => `
-                                    <div class="resource-card">
-                                        <i class="fas ${resource.icon}"></i>
-                                        <h5>${resource.title}</h5>
-                                        <p>${resource.description}</p>
-                                        <a href="${resource.link}" class="resource-btn">
-                                            تعلم المزيد
-                                            <i class="fas fa-arrow-left"></i>
-                                        </a>
-                                    </div>
-                                `).join('')}
+
+                <!-- Redemption Instructions -->
+                <div class="redemption-instructions">
+                    <h4>كيفية استخدام الكود</h4>
+                    <div class="redemption-methods">
+                        <!-- In-Store Method -->
+                        <div class="redemption-method">
+                            <h5>
+                                <i class="fas fa-store"></i>
+                                استخدام في الفرع
+                            </h5>
+                            <ul>
+                                <li>
+                                    <i class="fas fa-camera"></i>
+                                    قم بتصوير شاشة النجاح مع الكود
+                                </li>
+                                <li>
+                                    <i class="fas fa-clock"></i>
+                                    تأكد من ظهور وقت انتهاء الاختبار في الصورة
+                                </li>
+                                <li>
+                                    <i class="fas fa-user"></i>
+                                    أظهر الصورة للكاشير عند الدفع
+                                </li>
+                            </ul>
+                            <p class="note">يجب استخدام الكود خلال مدة صلاحيته</p>
+                        </div>
+                        
+                        <!-- Delivery Method -->
+                        <div class="redemption-method">
+                            <h5>
+                                <i class="fas fa-motorcycle"></i>
+                                طلب عن بعد
+                            </h5>
+                            <ul>
+                                <li>
+                                    <i class="fab fa-whatsapp"></i>
+                                    تواصل معنا عبر واتساب
+                                </li>
+                                <li>
+                                    <i class="fas fa-image"></i>
+                                    أرسل صورة شاشة النجاح مع الكود
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    سيتم تأكيد الكود وتطبيق الخصم
+                                </li>
+                            </ul>
+                            <p class="note">تأكد من إرسال الصورة قبل انتهاء صلاحية الكود</p>
                         </div>
                     </div>
                 </div>
@@ -771,68 +743,14 @@ function showResults() {
                         العودة للصفحة الرئيسية
                     </button>
                 </div>
-                
-                <!-- Progress Statistics -->
-                <div class="progress-stats">
-                    <h3><i class="fas fa-chart-line"></i> إحصائيات أدائك</h3>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <i class="fas fa-trophy"></i>
-                            <span class="stat-label">أفضل نتيجة</span>
-                            <span class="stat-value">${categoryStats.bestScore}%</span>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-medal"></i>
-                            <span class="stat-label">معدل النتائج</span>
-                            <span class="stat-value">${averageScore}</span>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-sync-alt"></i>
-                            <span class="stat-label">عدد المحاولات</span>
-                            <span class="stat-value">${categoryStats.attempts}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Custom Tips Section -->
-                <div class="tips-section">
-                    <h3><i class="fas fa-lightbulb"></i> نصائح مخصصة لتحسين أدائك</h3>
-                    <div class="tips-grid">
-                        ${tips.map(tip => `
-                            <div class="tip-card">
-                                <i class="fas fa-star"></i>
-                                <p>${tip}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-
-                <!-- Performance Graph -->
-                <div class="performance-graph">
-                    <h3><i class="fas fa-chart-line"></i> تطور أدائك</h3>
-                    <div class="graph-container">
-                        <div class="progress-bar">
-                            <div class="progress" style="width: ${percentage}%"></div>
-                        </div>
-                        <div class="graph-labels">
-                            <span>النتيجة الحالية: ${percentage}%</span>
-                            <span>أفضل نتيجة: ${progressStats.bestScore}%</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         `;
 
         startConfetti();
-        startCountdown(expiryDate);
     } else {
-        // Show failure message for scores below 60%
         quizContent.innerHTML = `
-            <div class="result-container ${resultClass}">
-                <div class="fail-animation">
-                    <i class="fas fa-times-circle"></i>
-                </div>
-                <h2 class="result-title">${resultMessage}</h2>
+            <div class="result-container try-again">
+                <h2 class="result-title">للأسف لم تنجح في الاختبار 😔</h2>
                 
                 <div class="score-details">
                     <div class="score-circle">
@@ -842,7 +760,7 @@ function showResults() {
                     <p class="percentage">${percentage}%</p>
                 </div>
                 
-                <p class="fail-message">لم تحصل على العرض، يرجى إعادة المحاولة للحصول على نتيجة أفضل</p>
+                <p class="fail-message">لم تحصل على الخصم، يرجى إعادة المحاولة للحصول على نتيجة أفضل</p>
                 
                 <div class="buttons-container">
                     <button class="try-again-btn" onclick="restartQuiz()">
@@ -856,24 +774,6 @@ function showResults() {
                 </div>
             </div>
         `;
-
-        const tips = [
-            "راجع المعلومات في قسم 'هل تعلم' قبل المحاولة التالية",
-            "اقرأ السؤال بتمعن قبل اختيار الإجابة",
-            "استفد من المصادر التعليمية المتوفرة لكل فئة",
-            "ركز على الأسئلة التي أخطأت فيها"
-        ];
-
-        const tipsContainer = document.getElementById('tips-container');
-        const tipsList = document.querySelector('.tips-list');
-        
-        if (tipsContainer && tipsList) {
-            tipsList.innerHTML = tips.map(tip => `
-                <li><i class="fas fa-check-circle"></i> ${tip}</li>
-            `).join('');
-            tipsContainer.style.display = 'block';
-            tipsContainer.classList.add('fade-in');
-        }
     }
 }
 
