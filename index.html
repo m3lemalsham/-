@@ -3,34 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="فلافل معلم الشام - مطعم شامي في ينبع البحر. نقدم أشهى المأكولات شامية مع خدمة توصيل سريعة وآمنة.">
-    <meta name="keywords" content="معلم الشام, فلافل, طعام شامي, ينبع البحر, توصيل طعام, مأكولات شامية">
+    <meta name="description" content="فلافل معلم الشام - أفضل مطعم شامي في ينبع البحر يقدم أشهى المأكولات الشامية الأصيلة. فلافل طازجة، سندويشات شهية، وخدمة توصيل سريعة. تذوق الطعم الشامي الأصيل">
+    <meta name="keywords" content="معلم الشام, فلافل, مطعم شامي, ينبع البحر, توصيل طعام, مأكولات شامية, حمص, فلافل شامية, مطعم حلال, أكل شامي">
     <meta name="author" content="معلم الشام">
-    <meta property="og:title" content="فلافل معلم الشام">
-    <meta property="og:description" content="نقدم أشهى المأكولات شامية مع خدمة توصيل سريعة في ينبع البحر">
-    <meta property="og:image" content="images/logo.png">
+    <meta property="og:title" content="معلم الشام - أفضل مطعم فلافل شامي في ينبع البحر">
+    <meta property="og:description" content="نقدم أشهى المأكولات الشامية الأصيلة مع خدمة توصيل سريعة في ينبع البحر. فلافل طازجة وسندويشات شهية">
+    <meta property="og:image" content="https://moalemalsham.com/images/logo.png">
     <meta property="og:url" content="https://moalemalsham.com">
     <link rel="icon" type="image/png" href="images/logo.png">
-    <title>معلم الشام - مأكولات شامية أصيل</title>
+    <title>معلم الشام - أفضل مطعم فلافل شامي في ينبع البحر</title>
+
     <!-- Preconnect to required origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <!-- AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3047116489558029"
-    crossorigin="anonymous"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3047116489558029"
-    crossorigin="anonymous"></script>
-    <!-- Preload critical assets -->
-    <link rel="preload" href="images/صحن فلافل عربي مشكل-كبير.jpg" as="image">
-    <link rel="preload" href="style.css" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
-    <!-- Search Console -->
+
+    <!-- Search Console verification -->
     <meta name="google-site-verification" content="yKMa_JP3hV67J7i6BuY8PhkYQgzca-NdXmfYcoJUW1o" />
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Critical CSS -->
+    <style>
+        /* Add critical CSS here */
+        .hero { opacity: 0; animation: fadeIn 0.5s ease-in forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
+
+    <!-- Async CSS loading -->
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3047116489558029" crossorigin="anonymous"></script>
 </head>
  <body>
     
@@ -90,49 +97,49 @@
     </section>
 
 
-    <section id="menu" class="menu-section">
-        <h2>قائمة الطعام</h2>
-        <div class="menu-categories">
-            <button class="menu-tab active" data-category="main">الأطباق الرئيسية</button>
-            <button class="menu-tab" data-category="sandwiches">السندويتشات</button>
-            <button class="menu-tab" data-category="desserts">الغربي</button>
-            <button class="menu-tab" data-category="sides">الأطباق الجانبية</button>
-            <button class="menu-tab" data-category="drinks">المشروبات</button>
+    <section id="menu" class="menu-section" aria-labelledby="menu-title" role="region">
+        <h2 id="menu-title">قائمة الطعام</h2>
+        <div class="menu-categories" role="tablist" aria-label="فئات القائمة">
+            <button class="menu-tab active" role="tab" aria-selected="true" data-category="main">الأطباق الرئيسية</button>
+            <button class="menu-tab" role="tab" aria-selected="false" data-category="sandwiches">السندويتشات</button>
+            <button class="menu-tab" role="tab" aria-selected="false" data-category="desserts">الغربي</button>
+            <button class="menu-tab" role="tab" aria-selected="false" data-category="sides">الأطباق الجانبية</button>
+            <button class="menu-tab" role="tab" aria-selected="false" data-category="drinks">المشروبات</button>
         </div>
 
-        <div class="menu-items" id="main">
+        <div class="menu-items" id="main" role="tabpanel" aria-labelledby="menu-tab">
             <div class="menu-grid">
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/صحن فلافل عربي مشكل-صغير.jpg" alt="صحن فلافل عربي مشكل صغير">
                     <h3>صحن فلافل عربي مشكل - صغير</h3>
                     <p class="description"> 1سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 4 حبة فلافل ـ  1 حبة بيض</p>
                     <span class="price">13 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/صحن فلافل عربي مشكل-وسط.jpg" alt="صحن فلافل عربي مشكل وسط">
                     <h3>صحن فلافل عربي مشكل - وسط</h3>
                     <p class="description"> 2 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 7 حبة فلافل ـ 2 حبة بيض</p>
                     <span class="price">20 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/صحن فلافل عربي مشكل-كبير.jpg" alt="صحن فلافل عربي مشكل كبير">
                     <h3>صحن فلافل عربي مشكل - كبير</h3>
                     <p class="description"> 4 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 8 حبة فلافل ـ 3 حبة بيض</p>
                     <span class="price">30 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/صحن فلافل-صغير.jpg" alt="صحن فلافل صغير">
                     <h3>صحن فلافل - صغير</h3>
                     <p class="description">14 حبة فلافل ـ حمص ـ بطاطس ـ مخلل ـ 1 حبة بيض </p>
                     <span class="price">13 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/صحن فلافل-وسط.jpg" alt="صحن فلافل وسط">
                     <h3>صحن فلافل - وسط</h3>
                     <p class="description">30 حبة فلافل ـ حمص ـ بطاطس ـ مخلل ـ 2 حبة بيض </p>
                     <span class="price">20 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/صحن فلافل-كبير.jpg" alt="صحن فلافل كبير">
                     <h3>صحن فلافل - كبير</h3>
                     <p class="description">2 سندويش فلافل ـ 2 سندويش دجاج ـ حمص ـ مخلل ـ بطاطس ـ  8 حبة فلافل</p>
@@ -141,34 +148,34 @@
             </div>
         </div>
 
-        <div class="menu-items" id="sandwiches" style="display: none;">
+        <div class="menu-items" id="sandwiches" role="tabpanel" aria-labelledby="menu-tab" style="display: none;">
             <div class="menu-grid">
 
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/ساندويش فلافل خبز شامي .jpg" alt="ساندويش فلافل خبز شامي">
                     <h3>ساندويش فلافل خبز شامي</h3>
                     <p class="description">فلافل تقليدية في خبز شامي أصيل</p>
                     <span class="price">4 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/ساندويش فلافل خبز شامي مع بيض.jpg" alt="ساندويش فلافل خبز شامي مع بيض">
                     <h3>ساندويش فلافل خبز شامي مع بيض</h3>
                     <p class="description">فلافل مع بيض في خبز شامي</p>
                     <span class="price">5 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/ساندويش فلافل خبز تنوري.jpg" alt="ساندويش فلافل خبز تنوري">
                     <h3>ساندويش فلافل خبز تنوري</h3>
                     <p class="description">فلافل طازجة مع خضار في خبز تنوري</p>
                     <span class="price">6 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/ساندويش فلافل خبز تنوري مع بيض.jpg" alt="ساندويش فلافل خبز تنوري مع بيض">
                     <h3>ساندويش فلافل خبز تنوري مع بيض</h3>
                     <p class="description">فلافل مع بيض في خبز تنوري</p>
                     <span class="price">7 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/كساديا فلافل.jpg" alt="كساديا فلافل">
                     <h3>كساديا فلافل</h3>
                     <p class="description">كساديا محشوة بالفلافل </p>
@@ -177,33 +184,33 @@
             </div>
         </div>
 
-        <div class="menu-items" id="desserts" style="display: none;">
+        <div class="menu-items" id="desserts" role="tabpanel" aria-labelledby="menu-tab" style="display: none;">
             <div class="menu-grid">
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/سندويـش فاهيتا.jpg" alt="سندويش فاهيتا">
                     <h3>سندويش فاهيتا</h3>
                     <p class="description">فاهيتا شهية مع صلصة خاصة</p>
                     <span class="price">12 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/سندويش كريسبي.jpg" alt="سندويش كريسبي">
                     <h3>سندويش كريسبي</h3>
                     <p class="description">دجاج كريسبي مقرمش مع صلصة خاصة</p>
                     <span class="price">12 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/سندويش مكسيكي.jpg" alt="سندويش مكسيكي">
                     <h3>سندويش مكسيكي</h3>
                     <p class="description">سندويش بنكهة مكسيكية حارة</p>
                     <span class="price">12 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/بريتو إيطالي.jpg" alt="بريتو إيطالي">
                     <h3>بريتو إيطالي</h3>
                     <p class="description">بريتو بالطريقة الإيطالية</p>
                     <span class="price">12 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/كساديا.jpg" alt="كساديا">
                     <h3>كساديا</h3>
                     <p class="description">كساديا مكسيكية بالجبن</p>
@@ -212,45 +219,45 @@
             </div>
         </div>
 
-        <div class="menu-items" id="sides" style="display: none;">
+        <div class="menu-items" id="sides" role="tabpanel" aria-labelledby="menu-tab" style="display: none;">
             <div class="menu-grid">
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/علبة بطاطس.jpg" alt="علبة بطاطس">
                     <h3>بطاطس مقلية</h3>
                     <p class="description">بطاطس مقلية مقرمشة من خارج وطريه من داخل</p>
                     <span class="price">6 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/علبة حمص.jpg" alt="علبة حمص">
                     <h3>حمص</h3>
                     <p class="description">حمص بطحينة على الطريقة الشامية مع زيت الزيتون</p>
                     <span class="price">5 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/علبة مخلل.jpg" alt="علبة مخلل">
                     <h3>مخلل مشكل</h3>
                     <p class="description">تشكيلة من المخللات بالطريقتنا المتنوعة</p>
                     <span class="price">3 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/فلافل 3 حبات.jpg" alt="فلافل 3 حبات">
                     <h3>فلافل 3 حبات</h3>
                     <p class="description">3 حبات فلافل مقرمشة</p>
                     <span class="price">1 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/سمبوسة اكاوي.jpg" alt=" حبة سمبوسة جبن">
                     <h3>حبة سمبوسة جبن فيتا</h3>
                     <p class="description">سمبوسة جبن فيتا شهية </p>
                     <span class="price">1 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/سمبوسة لحم.jpg" alt=" حبة سمبوسة لحم">
                     <h3>حبة سمبوسة لحم</h3>
                     <p class="description">سمبوسة لحم شهية </p>
                     <span class="price">1 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/سمبوسة جبن.jpg" alt=" حبة سمبوسة عكاوي">
                     <h3>حبة سمبوسة جبن عكاوي</h3>
                     <p class="description">سمبوسة جبن عكاوي شهية </p>
@@ -259,27 +266,27 @@
             </div>
         </div>
 
-        <div class="menu-items" id="drinks" style="display: none;">
+        <div class="menu-items" id="drinks" role="tabpanel" aria-labelledby="menu-tab" style="display: none;">
             <div class="menu-grid">
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/كينزا برتقال.jpg" alt="كينزا برتقال">
                     <h3>كينزا برتقال</h3>
                     <p class="description">مشروب سعودي بنكهة برتقال المنعشة</p>
                     <span class="price">2.5 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/كينزا حمضيات.jpg" alt="كينزا حمضيات">
                     <h3>كينزا حمضيات</h3>
                     <p class="description">مشروب سعودي بنكهة الحمضيات المنعشة</p>
                     <span class="price">2.5 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/كينزا سفن.jpg" alt="كينزا سفن">
                     <h3>كينزا سفن</h3>
                     <p class="description">مشروب سعودي بنكهة سفن المنعش</p>
                     <span class="price">2.5 </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" role="article">
                     <img src="images/كينزا كولا.jpg" alt="كينزا كولا">
                     <h3>كينزا كولا</h3>
                     <p class="description">مشروب سعودي بنكهة كولا المنعش</p>
@@ -465,16 +472,16 @@
             <div class="social-media">
                 <h3>تابعونا على وسائل التواصل الاجتماعي</h3>
                 <div class="social-icons">
-                    <a href="https://www.snapchat.com/add/e3753315?share_id=Flx4vsl1OIo&locale=ar-SA" target="_blank" class="social-icon">
+                    <a href="https://www.snapchat.com/add/e3753315?share_id=Flx4vsl1OIo&locale=ar-SA" target="_blank" class="social-icon" rel="noopener noreferrer">
                         <img src="images/snapchat.png" alt="Snapchat" class="social-img">
                     </a>
-                    <a href="https://www.facebook.com/profile.php?id=61573374835399" target="_blank" class="social-icon">
+                    <a href="https://www.facebook.com/profile.php?id=61573374835399" target="_blank" class="social-icon" rel="noopener noreferrer">
                         <img src="images/facebook.png" alt="Facebook" class="social-img">
                     </a>
-                    <a href="https://www.instagram.com/m3lemalsham/?next=%2Ffxcal%2Fdisclosure%2F" target="_blank" class="social-icon">
+                    <a href="https://www.instagram.com/m3lemalsham/?next=%2Ffxcal%2Fdisclosure%2F" target="_blank" class="social-icon" rel="noopener noreferrer">
                         <img src="images/instagram.png" alt="Instagram" class="social-img">
                     </a>
-                    <a href="https://wa.me/966594872016" target="_blank" class="social-icon">
+                    <a href="https://wa.me/966594872016" target="_blank" class="social-icon" rel="noopener noreferrer">
                         <img src="images/whatsapp.png" alt="WhatsApp" class="social-img">
                     </a>
                 </div>
@@ -483,7 +490,7 @@
     </section>
 
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2025 معلم الشام</p>
+        <p>جميع الحقوق محفوظة &copy; 2025 معلم الشام | <a href="privacy.html">سياسة الخصوصية</a></p>
     </footer>
 
     <script src="script.js"></script>

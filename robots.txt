@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://moalemalsham.com/sitemap.xml
