@@ -38,10 +38,15 @@
 
     <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3047116489558029" crossorigin="anonymous"></script>
+
+    <!-- إضافة أيقونة سلة المشتريات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="cart.css">
 </head>
  <body>
+    <!-- إضافة خلفية معتمة للسلة -->
+    <div class="cart-overlay"></div>
     
-
     <nav class="navbar">
         <div class="logo">
             <img src="images/logo.png" alt="معلم الشام لوقو" class="logo-img">
@@ -60,7 +65,121 @@
             <div class="line2"></div>
             <div class="line3"></div>
         </div>
+        <div class="cart-controls">
+            <button class="toggle-cart-btn" title="إخفاء/إظهار السلة">
+                <i class="fas fa-eye"></i>
+            </button>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart fa-lg"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
     </nav>
+
+    <!-- سلة المشتريات -->
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-basket"></i> سلة المشتريات</h3>
+            <button class="close-cart" aria-label="إغلاق السلة">&times;</button>
+        </div>
+        <div class="cart-items"></div>
+        
+        <!-- إضافة قسم كود الخصم -->
+        <div class="coupon-section">
+            <div class="form-group">
+                <label for="discountCode">كود الخصم</label>
+                <div class="coupon-input">
+                    <input type="text" id="discountCode" placeholder="أدخل كود الخصم" />
+                    <button id="applyCoupon">تطبيق</button>
+                </div>
+                <div class="coupon-message"></div>
+            </div>
+        </div>
+
+        <div class="cart-total">
+            <h4><i class="fas fa-receipt"></i> المجموع:</h4>
+            <div class="total-details">
+                <div class="subtotal">المجموع الفرعي: <span>0 ريال</span></div>
+                <div class="discount hidden">الخصم: <span>0 ريال</span></div>
+                <div class="final-total">الإجمالي النهائي: <span>0 ريال</span></div>
+            </div>
+        </div>
+
+        <!-- نموذج بيانات العميل -->
+        <div class="customer-form">
+            <h4><i class="fas fa-user"></i> بيانات العميل</h4>
+            
+            <!-- قسم طريقة الدفع -->
+            <div class="form-group">
+                <label>طريقة الدفع:</label>
+                <div class="payment-options">
+                    <label class="radio-option">
+                        <input type="radio" name="payment" value="cash" checked>
+                        <span>كاش</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="payment" value="card">
+                        <span>شبكة</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- قسم طريقة الاستلام -->
+            <div class="form-group">
+                <label>طريقة الاستلام:</label>
+                <div class="delivery-options">
+                    <label class="radio-option">
+                        <input type="radio" name="delivery" value="delivery" checked>
+                        <span>توصيل للمنزل</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="delivery" value="pickup">
+                        <span>استلام من الفرع</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- البيانات الأساسية (تظهر دائماً) -->
+            <div id="basicDetails">
+                <div class="form-group">
+                    <label>الاسم <span class="required">*</span></label>
+                    <input type="text" id="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label>رقم الجوال <span class="required">*</span></label>
+                    <input type="tel" id="customerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>رقم جوال إضافي</label>
+                    <input type="tel" id="customerPhone2">
+                </div>
+                <div class="form-group">
+                    <label>تفاصيل إضافية</label>
+                    <textarea id="customerDetails"></textarea>
+                </div>
+            </div>
+
+            <!-- تفاصيل العنوان (تظهر فقط مع التوصيل) -->
+            <div id="addressDetails">
+                <div class="form-group">
+                    <label>الحي <span class="required">*</span></label>
+                    <input type="text" id="customerDistrict" required>
+                </div>
+                <div class="form-group">
+                    <label>الشارع <span class="required">*</span></label>
+                    <input type="text" id="customerStreet" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- إضافة قسم رسائل التنبيه -->
+        <div class="cart-messages"></div>
+
+        <button class="checkout-btn">
+            <i class="fab fa-whatsapp"></i>
+            إتمام الطلب عبر واتساب
+        </button>
+    </div>
 
     <section id="home" class="hero">
         <div class="hero-content">
@@ -102,48 +221,80 @@
         <div class="menu-categories" role="tablist" aria-label="فئات القائمة">
             <button class="menu-tab active" role="tab" aria-selected="true" data-category="main">الأطباق الرئيسية</button>
             <button class="menu-tab" role="tab" aria-selected="false" data-category="sandwiches">السندويتشات</button>
-            <button class="menu-tab" role="tab" aria-selected="false" data-category="desserts">الغربي</button>
+            <button class="menu-tab" role="tab" aria-selected="false" data-category="desserts">الأطباق الغربية</button>
             <button class="menu-tab" role="tab" aria-selected="false" data-category="sides">الأطباق الجانبية</button>
             <button class="menu-tab" role="tab" aria-selected="false" data-category="drinks">المشروبات</button>
         </div>
 
+        <!-- الأطباق الرئيسية -->
         <div class="menu-items" id="main" role="tabpanel" aria-labelledby="menu-tab">
             <div class="menu-grid">
+                <!-- صحن فلافل عربي مشكل -->
                 <div class="menu-item" role="article">
                     <img src="images/صحن فلافل عربي مشكل-صغير.jpg" alt="صحن فلافل عربي مشكل صغير">
                     <h3>صحن فلافل عربي مشكل - صغير</h3>
-                    <p class="description"> 1سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 4 حبة فلافل ـ  1 حبة بيض</p>
-                    <span class="price">13 </span>
+                    <p class="description">1 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 4 حبة فلافل ـ 1 حبة بيض</p>
+                    <div class="item-footer">
+                        <span class="price">13 ريال</span>
+                        <button class="add-to-cart" data-id="meal1" data-name="صحن فلافل عربي مشكل - صغير" data-price="13">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/صحن فلافل عربي مشكل-وسط.jpg" alt="صحن فلافل عربي مشكل وسط">
                     <h3>صحن فلافل عربي مشكل - وسط</h3>
-                    <p class="description"> 2 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 7 حبة فلافل ـ 2 حبة بيض</p>
-                    <span class="price">20 </span>
+                    <p class="description">2 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 7 حبة فلافل ـ 2 حبة بيض</p>
+                    <div class="item-footer">
+                        <span class="price">20 ريال</span>
+                        <button class="add-to-cart" data-id="meal2" data-name="صحن فلافل عربي مشكل - وسط" data-price="20">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/صحن فلافل عربي مشكل-كبير.jpg" alt="صحن فلافل عربي مشكل كبير">
                     <h3>صحن فلافل عربي مشكل - كبير</h3>
-                    <p class="description"> 4 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 8 حبة فلافل ـ 3 حبة بيض</p>
-                    <span class="price">30 </span>
+                    <p class="description">4 سندويش فلافل تنوري ـ حمص ـ بطاطس ـ مخلل ـ 8 حبة فلافل ـ 3 حبة بيض</p>
+                    <div class="item-footer">
+                        <span class="price">30 ريال</span>
+                        <button class="add-to-cart" data-id="meal3" data-name="صحن فلافل عربي مشكل - كبير" data-price="30">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/صحن فلافل-صغير.jpg" alt="صحن فلافل صغير">
                     <h3>صحن فلافل - صغير</h3>
                     <p class="description">14 حبة فلافل ـ حمص ـ بطاطس ـ مخلل ـ 1 حبة بيض </p>
-                    <span class="price">13 </span>
+                    <div class="item-footer">
+                        <span class="price">13 ريال</span>
+                        <button class="add-to-cart" data-id="meal4" data-name="صحن فلافل - صغير" data-price="13">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/صحن فلافل-وسط.jpg" alt="صحن فلافل وسط">
                     <h3>صحن فلافل - وسط</h3>
                     <p class="description">30 حبة فلافل ـ حمص ـ بطاطس ـ مخلل ـ 2 حبة بيض </p>
-                    <span class="price">20 </span>
+                    <div class="item-footer">
+                        <span class="price">20 ريال</span>
+                        <button class="add-to-cart" data-id="meal5" data-name="صحن فلافل - وسط" data-price="20">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/صحن فلافل-كبير.jpg" alt="صحن فلافل كبير">
                     <h3>صحن فلافل - كبير</h3>
                     <p class="description">2 سندويش فلافل ـ 2 سندويش دجاج ـ حمص ـ مخلل ـ بطاطس ـ  8 حبة فلافل</p>
-                    <span class="price">40 </span>
+                    <div class="item-footer">
+                        <span class="price">40 ريال</span>
+                        <button class="add-to-cart" data-id="meal6" data-name="صحن فلافل - كبير" data-price="40">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -155,31 +306,56 @@
                     <img src="images/ساندويش فلافل خبز شامي .jpg" alt="ساندويش فلافل خبز شامي">
                     <h3>ساندويش فلافل خبز شامي</h3>
                     <p class="description">فلافل تقليدية في خبز شامي أصيل</p>
-                    <span class="price">4 </span>
+                    <div class="item-footer">
+                        <span class="price">4 ريال</span>
+                        <button class="add-to-cart" data-id="sandwich1" data-name="ساندويش فلافل خبز شامي" data-price="4">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/ساندويش فلافل خبز شامي مع بيض.jpg" alt="ساندويش فلافل خبز شامي مع بيض">
                     <h3>ساندويش فلافل خبز شامي مع بيض</h3>
                     <p class="description">فلافل مع بيض في خبز شامي</p>
-                    <span class="price">5 </span>
+                    <div class="item-footer">
+                        <span class="price">5 ريال</span>
+                        <button class="add-to-cart" data-id="sandwich2" data-name="ساندويش فلافل خبز شامي مع بيض" data-price="5">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/ساندويش فلافل خبز تنوري.jpg" alt="ساندويش فلافل خبز تنوري">
                     <h3>ساندويش فلافل خبز تنوري</h3>
                     <p class="description">فلافل طازجة مع خضار في خبز تنوري</p>
-                    <span class="price">6 </span>
+                    <div class="item-footer">
+                        <span class="price">6 ريال</span>
+                        <button class="add-to-cart" data-id="sandwich3" data-name="ساندويش فلافل خبز تنوري" data-price="6">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/ساندويش فلافل خبز تنوري مع بيض.jpg" alt="ساندويش فلافل خبز تنوري مع بيض">
                     <h3>ساندويش فلافل خبز تنوري مع بيض</h3>
                     <p class="description">فلافل مع بيض في خبز تنوري</p>
-                    <span class="price">7 </span>
+                    <div class="item-footer">
+                        <span class="price">7 ريال</span>
+                        <button class="add-to-cart" data-id="sandwich4" data-name="ساندويش فلافل خبز تنوري مع بيض" data-price="7">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/كساديا فلافل.jpg" alt="كساديا فلافل">
                     <h3>كساديا فلافل</h3>
                     <p class="description">كساديا محشوة بالفلافل </p>
-                    <span class="price">10 </span>
+                    <div class="item-footer">
+                        <span class="price">10 ريال</span>
+                        <button class="add-to-cart" data-id="sandwich5" data-name="كساديا فلافل" data-price="10">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -190,31 +366,56 @@
                     <img src="images/سندويـش فاهيتا.jpg" alt="سندويش فاهيتا">
                     <h3>سندويش فاهيتا</h3>
                     <p class="description">فاهيتا شهية مع صلصة خاصة</p>
-                    <span class="price">12 </span>
+                    <div class="item-footer">
+                        <span class="price">12 ريال</span>
+                        <button class="add-to-cart" data-id="dessert1" data-name="سندويش فاهيتا" data-price="12">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/سندويش كريسبي.jpg" alt="سندويش كريسبي">
                     <h3>سندويش كريسبي</h3>
                     <p class="description">دجاج كريسبي مقرمش مع صلصة خاصة</p>
-                    <span class="price">12 </span>
+                    <div class="item-footer">
+                        <span class="price">12 ريال</span>
+                        <button class="add-to-cart" data-id="dessert2" data-name="سندويش كريسبي" data-price="12">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/سندويش مكسيكي.jpg" alt="سندويش مكسيكي">
                     <h3>سندويش مكسيكي</h3>
                     <p class="description">سندويش بنكهة مكسيكية حارة</p>
-                    <span class="price">12 </span>
+                    <div class="item-footer">
+                        <span class="price">12 ريال</span>
+                        <button class="add-to-cart" data-id="dessert3" data-name="سندويش مكسيكي" data-price="12">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/بريتو إيطالي.jpg" alt="بريتو إيطالي">
                     <h3>بريتو إيطالي</h3>
                     <p class="description">بريتو بالطريقة الإيطالية</p>
-                    <span class="price">12 </span>
+                    <div class="item-footer">
+                        <span class="price">12 ريال</span>
+                        <button class="add-to-cart" data-id="dessert4" data-name="بريتو إيطالي" data-price="12">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/كساديا.jpg" alt="كساديا">
                     <h3>كساديا</h3>
                     <p class="description">كساديا مكسيكية بالجبن</p>
-                    <span class="price">12 </span>
+                    <div class="item-footer">
+                        <span class="price">12 ريال</span>
+                        <button class="add-to-cart" data-id="dessert5" data-name="كساديا" data-price="12">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -225,43 +426,78 @@
                     <img src="images/علبة بطاطس.jpg" alt="علبة بطاطس">
                     <h3>بطاطس مقلية</h3>
                     <p class="description">بطاطس مقلية مقرمشة من خارج وطريه من داخل</p>
-                    <span class="price">6 </span>
+                    <div class="item-footer">
+                        <span class="price">6 ريال</span>
+                        <button class="add-to-cart" data-id="side1" data-name="بطاطس مقلية" data-price="6">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/علبة حمص.jpg" alt="علبة حمص">
                     <h3>حمص</h3>
                     <p class="description">حمص بطحينة على الطريقة الشامية مع زيت الزيتون</p>
-                    <span class="price">5 </span>
+                    <div class="item-footer">
+                        <span class="price">5 ريال</span>
+                        <button class="add-to-cart" data-id="side2" data-name="حمص" data-price="5">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/علبة مخلل.jpg" alt="علبة مخلل">
                     <h3>مخلل مشكل</h3>
                     <p class="description">تشكيلة من المخللات بالطريقتنا المتنوعة</p>
-                    <span class="price">3 </span>
+                    <div class="item-footer">
+                        <span class="price">3 ريال</span>
+                        <button class="add-to-cart" data-id="side3" data-name="مخلل مشكل" data-price="3">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/فلافل 3 حبات.jpg" alt="فلافل 3 حبات">
                     <h3>فلافل 3 حبات</h3>
                     <p class="description">3 حبات فلافل مقرمشة</p>
-                    <span class="price">1 </span>
+                    <div class="item-footer">
+                        <span class="price">1 ريال</span>
+                        <button class="add-to-cart" data-id="side4" data-name="فلافل 3 حبات" data-price="1">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/سمبوسة اكاوي.jpg" alt=" حبة سمبوسة جبن">
                     <h3>حبة سمبوسة جبن فيتا</h3>
                     <p class="description">سمبوسة جبن فيتا شهية </p>
-                    <span class="price">1 </span>
+                    <div class="item-footer">
+                        <span class="price">1 ريال</span>
+                        <button class="add-to-cart" data-id="side5" data-name="حبة سمبوسة جبن فيتا" data-price="1">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/سمبوسة لحم.jpg" alt=" حبة سمبوسة لحم">
                     <h3>حبة سمبوسة لحم</h3>
                     <p class="description">سمبوسة لحم شهية </p>
-                    <span class="price">1 </span>
+                    <div class="item-footer">
+                        <span class="price">1 ريال</span>
+                        <button class="add-to-cart" data-id="side6" data-name="حبة سمبوسة لحم" data-price="1">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/سمبوسة جبن.jpg" alt=" حبة سمبوسة عكاوي">
                     <h3>حبة سمبوسة جبن عكاوي</h3>
                     <p class="description">سمبوسة جبن عكاوي شهية </p>
-                    <span class="price">1 </span>
+                    <div class="item-footer">
+                        <span class="price">1 ريال</span>
+                        <button class="add-to-cart" data-id="side7" data-name="حبة سمبوسة جبن عكاوي" data-price="1">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -272,25 +508,45 @@
                     <img src="images/كينزا برتقال.jpg" alt="كينزا برتقال">
                     <h3>كينزا برتقال</h3>
                     <p class="description">مشروب سعودي بنكهة برتقال المنعشة</p>
-                    <span class="price">2.5 </span>
+                    <div class="item-footer">
+                        <span class="price">2.5 ريال</span>
+                        <button class="add-to-cart" data-id="drink1" data-name="كينزا برتقال" data-price="2.5">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/كينزا حمضيات.jpg" alt="كينزا حمضيات">
                     <h3>كينزا حمضيات</h3>
                     <p class="description">مشروب سعودي بنكهة الحمضيات المنعشة</p>
-                    <span class="price">2.5 </span>
+                    <div class="item-footer">
+                        <span class="price">2.5 ريال</span>
+                        <button class="add-to-cart" data-id="drink2" data-name="كينزا حمضيات" data-price="2.5">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/كينزا سفن.jpg" alt="كينزا سفن">
                     <h3>كينزا سفن</h3>
                     <p class="description">مشروب سعودي بنكهة سفن المنعش</p>
-                    <span class="price">2.5 </span>
+                    <div class="item-footer">
+                        <span class="price">2.5 ريال</span>
+                        <button class="add-to-cart" data-id="drink3" data-name="كينزا سفن" data-price="2.5">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="menu-item" role="article">
                     <img src="images/كينزا كولا.jpg" alt="كينزا كولا">
                     <h3>كينزا كولا</h3>
                     <p class="description">مشروب سعودي بنكهة كولا المنعش</p>
-                    <span class="price">2.5 </span>
+                    <div class="item-footer">
+                        <span class="price">2.5 ريال</span>
+                        <button class="add-to-cart" data-id="drink4" data-name="كينزا كولا" data-price="2.5">
+                            إضافة للسلة <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -493,6 +749,7 @@
         <p>جميع الحقوق محفوظة &copy; 2025 معلم الشام | <a href="privacy.html">سياسة الخصوصية</a></p>
     </footer>
 
+    <script src="cart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
