@@ -641,28 +641,17 @@ function showResults() {
     const quizContent = document.querySelector('.quiz-content');
     const numQuestions = questions[currentCategory].length;
     const percentage = (score / numQuestions) * 100;
-    const couponCode = generateCouponCode();
-    
-    const currentDate = formatDate();
-    const expiryDate = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
-    const endTimeFormatted = formatEndTime(expiryDate);
     
     if (percentage >= 60) {
+        // إنشاء كود مسابقة جديد
+        const contestCode = generateContestCode();
+        
+        // تخزين الكود في localStorage
+        localStorage.setItem('quizCode', contestCode);
+        
         quizContent.innerHTML = `
             <div class="result-container excellent">
                 <h2 class="result-title">مبروك! لقد اجتزت الاختبار بنجاح 🎉</h2>
-                
-                <div class="date-time-container">
-                    <div class="current-time">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>${currentDate}</span>
-                    </div>
-                    <div class="expire-time">
-                        <i class="fas fa-hourglass-end"></i>
-                        <span>ينتهي في: ${endTimeFormatted}</span>
-                    </div>
-                </div>
-
                 <div class="score-details">
                     <div class="score-circle">
                         <span class="score-number">${score}</span>
@@ -672,67 +661,35 @@ function showResults() {
                 </div>
                 
                 <div class="coupon-container shine-effect">
-                    <h3>🎁 كود الخصم الخاص بك</h3>
-                    <div class="coupon-code" onclick="copyCode('${couponCode}')">${couponCode}</div>
-                    <button class="copy-coupon" onclick="copyCode('${couponCode}')">
+                    <h3>🎁 كود المسابقة الخاص بك</h3>
+                    <div class="coupon-code" onclick="copyCode('${contestCode}')">${contestCode}</div>
+                    <button class="copy-coupon" onclick="copyCode('${contestCode}')">
                         <i class="fas fa-copy"></i>
                         نسخ الكود
                     </button>
-                    <p class="expiry-note">* الكود صالح لمدة ساعتين من وقت إنشائه</p>
-                </div>
-
-                <!-- Redemption Instructions -->
-                <div class="redemption-instructions">
-                    <h4>كيفية استخدام الكود</h4>
-                    <div class="redemption-methods">
-                        <!-- In-Store Method -->
-                        <div class="redemption-method">
-                            <h5>
-                                <i class="fas fa-store"></i>
-                                استخدام في الفرع
-                            </h5>
-                            <ul>
-                                <li>
-                                    <i class="fas fa-camera"></i>
-                                    قم بتصوير شاشة النجاح مع الكود
-                                </li>
-                                <li>
-                                    <i class="fas fa-clock"></i>
-                                    تأكد من ظهور وقت انتهاء الاختبار في الصورة
-                                </li>
-                                <li>
-                                    <i class="fas fa-user"></i>
-                                    أظهر الصورة للكاشير عند الدفع
-                                </li>
-                            </ul>
-                            <p class="note">يجب استخدام الكود خلال مدة صلاحيته</p>
-                        </div>
-                        
-                        <!-- Delivery Method -->
-                        <div class="redemption-method">
-                            <h5>
-                                <i class="fas fa-motorcycle"></i>
-                                طلب عن بعد
-                            </h5>
-                            <ul>
-                                <li>
-                                    <i class="fab fa-whatsapp"></i>
-                                    تواصل معنا عبر واتساب
-                                </li>
-                                <li>
-                                    <i class="fas fa-image"></i>
-                                    أرسل صورة شاشة النجاح مع الكود
-                                </li>
-                                <li>
-                                    <i class="fas fa-check-circle"></i>
-                                    سيتم تأكيد الكود وتطبيق الخصم
-                                </li>
-                            </ul>
-                            <p class="note">تأكد من إرسال الصورة قبل انتهاء صلاحية الكود</p>
-                        </div>
-                    </div>
+                    <p class="expiry-note">* الكود صالح لمرة واحدة فقط</p>
                 </div>
                 
+                <div class="redemption-instructions">
+                    <h4>كيفية استخدام الكود</h4>
+                    <h5>الطريقة الأولى: الطلب عبر الموقع</h5>
+                    <ol>
+                        <li>انسخ الكود المعروض أعلاه</li>
+                        <li>عد إلى السلة في الصفحة الرئيسية</li>
+                        <li>أدخل الكود في خانة "كود المسابقة"</li>
+                        <li>سيتم إضافة المنتج المجاني تلقائياً إلى سلتك</li>
+                    </ol>
+
+                    <h5>الطريقة الثانية: في الفرع مباشرة</h5>
+                    <ol>
+                        <li>احتفظ بالكود أو التقط صورة له</li>
+                        <li>قم بزيارة أي من فروعنا</li>
+                        <li>اعرض الكود على الكاشير</li>
+                        <li>سيقوم الكاشير بإضافة العرض المجاني لطلبك</li>
+                        <p class="note">* يجب إظهار الكود قبل إتمام عملية الدفع</p>
+                    </ol>
+                </div>
+
                 <div class="buttons-container">
                     <button class="try-again-btn" onclick="restartQuiz()">
                         <i class="fas fa-redo"></i>
@@ -789,6 +746,14 @@ function copyCode(code) {
             copyButton.classList.remove('copied');
         }, 2000);
     });
+}
+
+// تحديث دالة generateContestCode
+function generateContestCode() {
+    const prefix = "QUIZ";
+    const timestamp = Date.now().toString().slice(-4);
+    const randomNum = Math.floor(Math.random() * 900) + 100;
+    return `${prefix}${timestamp}${randomNum}`;
 }
 
 // إضافة مستمع لتحميل الصفحة

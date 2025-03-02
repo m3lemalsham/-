@@ -29,6 +29,98 @@ document.addEventListener('DOMContentLoaded', () => {
     let paymentMethod = 'cash';
     let deliveryMethod = 'delivery';
 
+    // تعريف عرض المسابقة
+    const contestProduct = {
+        id: 'contest-meal1',
+        name: 'صحن فلافل عربي مشكل - صغير',
+        price: 13,
+        originalPrice: 13
+    };
+
+    // التحقق من كود المسابقة
+    const applyContestCodeBtn = document.getElementById('applyContestCode');
+    const contestCodeInput = document.getElementById('contestCode');
+    const contestMessage = document.querySelector('.contest-message');
+
+    applyContestCodeBtn.addEventListener('click', () => {
+        const code = contestCodeInput.value.trim();
+        const savedQuizCode = localStorage.getItem('quizCode');
+        contestMessage.className = 'contest-message';
+
+        if (!code) {
+            contestMessage.textContent = 'الرجاء إدخال كود المسابقة';
+            contestMessage.classList.add('error');
+            return;
+        }
+
+        // التحقق من الكود
+        if (code === savedQuizCode) {
+            // التحقق من أن عرض المسابقة غير موجود مسبقاً في السلة
+            const existingContestItems = cart.filter(item => item.isContestItem);
+            
+            if (existingContestItems.length > 0) {
+                contestMessage.textContent = 'تم استخدام هذا الكود مسبقاً!';
+                contestMessage.classList.add('error');
+                return;
+            }
+
+            // إضافة المنتجات الثلاثة كمجموعة واحدة
+            const contestGroup = {
+                groupId: 'contest-group-' + Date.now(),
+                items: [
+                    {
+                        id: contestProduct.id + '-1',
+                        name: contestProduct.name,
+                        price: contestProduct.price,
+                        quantity: 1,
+                        isContestItem: true,
+                        contestGroupId: 'contest-group-' + Date.now()
+                    },
+                    {
+                        id: contestProduct.id + '-2',
+                        name: contestProduct.name,
+                        price: contestProduct.price,
+                        quantity: 1,
+                        isContestItem: true,
+                        contestGroupId: 'contest-group-' + Date.now()
+                    },
+                    {
+                        id: contestProduct.id + '-3',
+                        name: contestProduct.name + ' (مجاناً)',
+                        price: 0,
+                        quantity: 1,
+                        isContestItem: true,
+                        isFreeItem: true,
+                        contestGroupId: 'contest-group-' + Date.now()
+                    }
+                ]
+            };
+
+            // إضافة المجموعة للسلة
+            cart.push(...contestGroup.items);
+            
+            // تحديث السلة
+            updateCart();
+            
+            // إظهار رسالة النجاح
+            contestMessage.textContent = 'تم إضافة عرض المسابقة: اشترِ صحنين واحصل على الثالث مجاناً!';
+            contestMessage.classList.add('success');
+            
+            // تعطيل حقل الإدخال والزر
+            contestCodeInput.disabled = true;
+            applyContestCodeBtn.disabled = true;
+            
+            // إضافة رسالة نجاح متحركة
+            showCartMessage('تم إضافة عرض المسابقة بنجاح!', 'success');
+            
+            // حذف الكود من localStorage
+            localStorage.removeItem('quizCode');
+        } else {
+            contestMessage.textContent = 'عذراً، كود المسابقة غير صالح أو منتهي الصلاحية';
+            contestMessage.classList.add('error');
+        }
+    });
+
     // التحكم في إخفاء/إظهار السلة
     toggleCartBtn.addEventListener('click', () => {
         isCartVisible = !isCartVisible;
@@ -102,18 +194,24 @@ document.addEventListener('DOMContentLoaded', () => {
         let subtotal = 0;
 
         cart.forEach(item => {
+            const isContestItem = item.isContestItem;
             subtotal += item.price * item.quantity;
+            
             cartItemsContainer.innerHTML += `
-                <div class="cart-item">
+                <div class="cart-item ${isContestItem ? 'contest-item' : ''}">
                     <div class="item-info">
                         <h4>${item.name}</h4>
-                        <p>${item.price} ريال × ${item.quantity}</p>
+                        <p>${item.isFreeItem ? 
+                            `<del>${contestProduct.originalPrice} ريال</del> <span class="free-badge">مجاناً!</span>` : 
+                            `${item.price} ريال × ${item.quantity}`}</p>
                     </div>
                     <div class="item-controls">
-                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
-                        <span>${item.quantity}</span>
-                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
-                        <button class="remove-btn" data-id="${item.id}">×</button>
+                        ${isContestItem ? '' : `
+                            <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        `}
+                        <button class="remove-btn" data-id="${item.id}" onclick="removeItem('${item.id}')">${isContestItem ? 'حذف العرض' : '×'}</button>
                     </div>
                 </div>
             `;
@@ -126,7 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const discountAmount = (subtotal * activeDiscount) / 100;
         const finalTotal = subtotal - discountAmount;
         
-        // إظهار أو إخفاء قسم الخصم
         if (activeDiscount > 0) {
             discountElement.classList.remove('hidden');
             discountElement.querySelector('span').textContent = discountAmount.toFixed(2) + ' ريال';
@@ -134,7 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
             discountElement.classList.add('hidden');
         }
         
-        // تحديث الإجمالي النهائي
         finalTotalElement.textContent = finalTotal.toFixed(2) + ' ريال';
         document.querySelector('.cart-count').textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
     }
@@ -154,8 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCart();
         } else if (e.target.classList.contains('remove-btn')) {
             const id = e.target.dataset.id;
-            cart = cart.filter(item => item.id !== id);
-            updateCart();
+            removeItem(id);
         }
     });
 
@@ -335,4 +430,25 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCart();
         closeCartSidebar();
     });
+
+    // تحديث دالة حذف المنتج لتتعامل مع مجموعة المسابقة
+    function removeItem(id) {
+        const item = cart.find(item => item.id === id);
+        if (item && item.isContestItem) {
+            // إذا كان المنتج جزء من عرض المسابقة، نحذف المجموعة كاملة
+            const groupId = item.contestGroupId;
+            cart = cart.filter(item => item.contestGroupId !== groupId);
+            
+            // إعادة تفعيل حقل إدخال كود المسابقة
+            contestCodeInput.disabled = false;
+            applyContestCodeBtn.disabled = false;
+            contestCodeInput.value = '';
+            contestMessage.textContent = '';
+            contestMessage.className = 'contest-message';
+        } else {
+            // حذف منتج عادي
+            cart = cart.filter(item => item.id !== id);
+        }
+        updateCart();
+    }
 });

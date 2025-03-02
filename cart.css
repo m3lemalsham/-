@@ -677,3 +677,84 @@
         opacity: 1;
     }
 }
+
+/* تنسيق قسم كود المسابقة */
+.contest-section {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8fff8;
+    border-radius: 8px;
+    border: 1px dashed #4CAF50;
+}
+
+.contest-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.contest-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.contest-input button {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.contest-input button:hover {
+    background: #45a049;
+}
+
+.contest-input button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+}
+
+.contest-message {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    display: none;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.contest-message.success {
+    display: block;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.contest-message.error {
+    display: block;
+    background-color: #fbe9e7;
+    color: #c62828;
+    border: 1px solid #ffccbc;
+}
+
+/* تنسيق المنتجات المجانية في السلة */
+.cart-item.contest-item {
+    background: #f8fff8;
+    border: 1px dashed #4CAF50;
+}
+
+.free-badge {
+    display: inline-block;
+    background: #4CAF50;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
