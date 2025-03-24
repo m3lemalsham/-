@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // تعريف أكواد الخصم المتاحة والعداد
     const availableCoupons = {
-        'رمضان': 10 // 10% خصم
+        'عيد الفطر': 10 // 10% خصم
     };
     
     // إضافة كائن لتتبع عدد مرات استخدام كل كود
