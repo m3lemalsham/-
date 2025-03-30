@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = [];
     let isCartVisible = true;
     let activeDiscount = 0;
+    let totalCalories = 0;  // إضافة متغير لحساب السعرات الحرارية
 
     // تعريف أكواد الخصم المتاحة والعداد
     const availableCoupons = {
@@ -177,33 +178,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // إضافة منتج
+    // تحديث دالة addToCart لتشمل السعرات الحرارية
     function addToCart(id, name, price) {
+        const menuItem = document.querySelector(`[data-id="${id}"]`).closest('.menu-item');
+        const caloriesText = menuItem.querySelector('.calories').textContent;
+        const calories = parseInt(caloriesText);
+        
         const existingItem = cart.find(item => item.id === id);
         if (existingItem) {
             existingItem.quantity++;
         } else {
-            cart.push({ id, name, price, quantity: 1 });
+            cart.push({ id, name, price, quantity: 1, calories });
         }
         updateCart();
     }
 
-    // تحديث عرض السلة
+    // تحديث دالة updateCart لحساب وعرض السعرات الحرارية
     function updateCart() {
         cartItemsContainer.innerHTML = '';
         let subtotal = 0;
+        totalCalories = 0;  // إعادة تعيين مجموع السعرات
 
         cart.forEach(item => {
             const isContestItem = item.isContestItem;
             subtotal += item.price * item.quantity;
+            totalCalories += (item.calories || 0) * item.quantity;  // حساب مجموع السعرات
+            
+            // البحث عن صورة المنتج
+            const menuItem = document.querySelector(`[data-id="${item.id}"]`)?.closest('.menu-item');
+            let productImage = 'images/logo.png';
+            
+            if (menuItem) {
+                const imgElement = menuItem.querySelector('img');
+                if (imgElement) {
+                    productImage = imgElement.src;
+                }
+            }
             
             cartItemsContainer.innerHTML += `
                 <div class="cart-item ${isContestItem ? 'contest-item' : ''}">
+                    <div class="cart-item-image">
+                        <img src="${productImage}" alt="${item.name}" loading="lazy">
+                    </div>
                     <div class="item-info">
                         <h4>${item.name}</h4>
-                        <p>${item.isFreeItem ? 
+                        <p class="item-price">${item.isFreeItem ? 
                             `<del>${contestProduct.originalPrice} ريال</del> <span class="free-badge">مجاناً!</span>` : 
-                            `${item.price} ريال × ${item.quantity}`}</p>
+                            `${item.price} ريال`}</p>
+                        <p class="item-quantity">${item.quantity} قطعة</p>
+                        <p class="item-calories">${item.calories} سعرة × ${item.quantity}</p>
                     </div>
                     <div class="item-controls">
                         ${isContestItem ? '' : `
@@ -211,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span>${item.quantity}</span>
                             <button class="quantity-btn plus" data-id="${item.id}">+</button>
                         `}
-                        <button class="remove-btn" data-id="${item.id}" onclick="removeItem('${item.id}')">${isContestItem ? 'حذف العرض' : '×'}</button>
+                        <button class="remove-btn" data-id="${item.id}" title="حذف من السلة"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             `;
@@ -219,6 +242,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // تحديث المجاميع
         subtotalElement.textContent = subtotal.toFixed(2) + ' ريال';
+        
+        // إضافة عرض مجموع السعرات الحرارية
+        const caloriesElement = document.querySelector('.total-calories span');
+        if (caloriesElement) {
+            caloriesElement.textContent = totalCalories;
+        }
         
         // حساب الخصم
         const discountAmount = (subtotal * activeDiscount) / 100;
@@ -235,24 +264,59 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.cart-count').textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
     }
 
-    // التحكم بالكمية
-    cartItemsContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('quantity-btn')) {
-            const id = e.target.dataset.id;
+    // التحكم بالكمية وأزرار الحذف
+    cartItemsContainer.addEventListener('click', function(e) {
+        const target = e.target;
+        
+        // التحقق من النقر على زر الحذف أو أيقونة الحذف
+        if (target.classList.contains('remove-btn') || target.closest('.remove-btn')) {
+            const button = target.classList.contains('remove-btn') ? target : target.closest('.remove-btn');
+            const id = button.dataset.id;
+            removeItem(id);
+            return;
+        }
+        
+        // التحقق من النقر على أزرار الكمية
+        if (target.classList.contains('quantity-btn')) {
+            const id = target.dataset.id;
             const item = cart.find(item => item.id === id);
-            if (e.target.classList.contains('plus')) {
+            if (!item) return;
+            
+            if (target.classList.contains('plus')) {
                 item.quantity++;
-            } else if (e.target.classList.contains('minus')) {
+            } else if (target.classList.contains('minus')) {
                 if (item.quantity > 1) {
                     item.quantity--;
                 }
             }
             updateCart();
-        } else if (e.target.classList.contains('remove-btn')) {
-            const id = e.target.dataset.id;
-            removeItem(id);
         }
     });
+
+    // تحديث دالة حذف المنتج
+    function removeItem(id) {
+        const item = cart.find(item => item.id === id);
+        if (!item) return;
+
+        if (item.isContestItem) {
+            // إذا كان المنتج جزء من عرض المسابقة، نحذف المجموعة كاملة
+            const groupId = item.contestGroupId;
+            cart = cart.filter(item => item.contestGroupId !== groupId);
+            
+            // إعادة تفعيل حقل إدخال كود المسابقة
+            contestCodeInput.disabled = false;
+            applyContestCodeBtn.disabled = false;
+            contestCodeInput.value = '';
+            contestMessage.textContent = '';
+            contestMessage.className = 'contest-message';
+        } else {
+            // حذف منتج عادي
+            cart = cart.filter(item => item.id !== id);
+        }
+        
+        updateCart();
+        showCartMessage('تم حذف المنتج من السلة', 'success');
+    }
 
     // تطبيق كود الخصم
     applyCouponBtn.addEventListener('click', () => {
@@ -430,25 +494,4 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCart();
         closeCartSidebar();
     });
-
-    // تحديث دالة حذف المنتج لتتعامل مع مجموعة المسابقة
-    function removeItem(id) {
-        const item = cart.find(item => item.id === id);
-        if (item && item.isContestItem) {
-            // إذا كان المنتج جزء من عرض المسابقة، نحذف المجموعة كاملة
-            const groupId = item.contestGroupId;
-            cart = cart.filter(item => item.contestGroupId !== groupId);
-            
-            // إعادة تفعيل حقل إدخال كود المسابقة
-            contestCodeInput.disabled = false;
-            applyContestCodeBtn.disabled = false;
-            contestCodeInput.value = '';
-            contestMessage.textContent = '';
-            contestMessage.className = 'contest-message';
-        } else {
-            // حذف منتج عادي
-            cart = cart.filter(item => item.id !== id);
-        }
-        updateCart();
-    }
 });
