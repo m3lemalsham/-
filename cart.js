@@ -13,10 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const subtotalElement = document.querySelector('.subtotal span');
     const finalTotalElement = document.querySelector('.final-total span');
     const couponMessage = document.querySelector('.coupon-message');
+    const deliveryFeeElement = document.querySelector('.delivery-fee span');
+    const deliveryFeeExplanation = document.querySelector('.delivery-fee-explanation');
     let cart = [];
     let isCartVisible = true;
     let activeDiscount = 0;
     let totalCalories = 0;  // إضافة متغير لحساب السعرات الحرارية
+    let deliveryFee = 0;
 
     // تعريف أكواد الخصم المتاحة والعداد
     const availableCoupons = {
@@ -193,18 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCart();
     }
 
-    // تحديث دالة updateCart لحساب وعرض السعرات الحرارية
+    // تحديث دالة updateCart لحذف حساب السعرات الحرارية
     function updateCart() {
         cartItemsContainer.innerHTML = '';
         let subtotal = 0;
-        totalCalories = 0;  // إعادة تعيين مجموع السعرات
 
         cart.forEach(item => {
             const isContestItem = item.isContestItem;
             subtotal += item.price * item.quantity;
-            totalCalories += (item.calories || 0) * item.quantity;  // حساب مجموع السعرات
             
-            // البحث عن صورة المنتج
             const menuItem = document.querySelector(`[data-id="${item.id}"]`)?.closest('.menu-item');
             let productImage = 'images/logo.png';
             
@@ -223,10 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="item-info">
                         <h4>${item.name}</h4>
                         <p class="item-price">${item.isFreeItem ? 
-                            `<del>${contestProduct.originalPrice} ريال</del> <span class="free-badge">مجاناً!</span>` : 
-                            `${item.price} ريال`}</p>
+                            `<del>${contestProduct.originalPrice} ر.س</del> <span class="free-badge">مجاناً!</span>` : 
+                            `${item.price} ر.س`}</p>
                         <p class="item-quantity">${item.quantity} قطعة</p>
-                        <p class="item-calories">${item.calories} سعرة × ${item.quantity}</p>
                     </div>
                     <div class="item-controls">
                         ${isContestItem ? '' : `
@@ -240,27 +239,41 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         });
 
-        // تحديث المجاميع
-        subtotalElement.textContent = subtotal.toFixed(2) + ' ريال';
+        const deliveryOption = document.querySelector('input[name="delivery"]:checked')?.value;
+        if (deliveryOption === 'delivery') {
+            if (subtotal < 50) {
+                deliveryFee = 10;
+                deliveryFeeExplanation.textContent = 'رسوم التوصيل 10 ر.س للطلبات أقل من 50 ر.س';
+            } else {
+                deliveryFee = 0;
+                deliveryFeeExplanation.textContent = 'التوصيل مجاني للطلبات 50 ر.س وأكثر!';
+            }
+        } else {
+            deliveryFee = 0;
+            deliveryFeeExplanation.textContent = '';
+        }
         
-        // إضافة عرض مجموع السعرات الحرارية
+        deliveryFeeElement.textContent = `${deliveryFee.toFixed(2)} ر.س`;
+        document.querySelector('.delivery-fee').classList.toggle('free', deliveryFee === 0);
+
+        subtotalElement.textContent = `${subtotal.toFixed(2)} ر.س`;
+        
         const caloriesElement = document.querySelector('.total-calories span');
         if (caloriesElement) {
             caloriesElement.textContent = totalCalories;
         }
         
-        // حساب الخصم
         const discountAmount = (subtotal * activeDiscount) / 100;
-        const finalTotal = subtotal - discountAmount;
+        const finalTotal = subtotal - discountAmount + deliveryFee;
         
         if (activeDiscount > 0) {
             discountElement.classList.remove('hidden');
-            discountElement.querySelector('span').textContent = discountAmount.toFixed(2) + ' ريال';
+            discountElement.querySelector('span').textContent = `${discountAmount.toFixed(2)} ر.س`;
         } else {
             discountElement.classList.add('hidden');
         }
         
-        finalTotalElement.textContent = finalTotal.toFixed(2) + ' ريال';
+        finalTotalElement.textContent = `${finalTotal.toFixed(2)} ر.س`;
         document.querySelector('.cart-count').textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
     }
 
@@ -365,6 +378,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 districtInput.required = true;
                 streetInput.required = true;
             }
+            
+            // تحديث السلة لحساب رسوم التوصيل الجديدة
+            updateCart();
         });
     });
 
@@ -400,12 +416,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
-    // إرسال الطلب عبر الواتساب
+    // تحديث دالة إرسال الطلب لحذف السعرات الحرارية
     checkoutButton.addEventListener('click', () => {
         const cartMessages = document.querySelector('.cart-messages');
-        cartMessages.innerHTML = ''; // مسح الرسائل السابقة
+        cartMessages.innerHTML = '';
 
-        // التحقق من وجود منتجات في السلة
         if (cart.length === 0) {
             showCartMessage('لا يمكن إرسال الطلب، السلة فارغة!');
             return;
@@ -416,13 +431,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const phone2 = document.getElementById('customerPhone2').value;
         const details = document.getElementById('customerDetails').value;
         
-        // التحقق من البيانات المطلوبة
         if (!name || !phone) {
             showCartMessage('الرجاء إدخال الاسم ورقم الجوال', 'warning');
             return;
         }
 
-        // التحقق من بيانات العنوان إذا كان التوصيل للمنزل
         if (deliveryMethod === 'delivery') {
             const district = document.getElementById('customerDistrict').value;
             const street = document.getElementById('customerStreet').value;
@@ -434,57 +447,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // تجهيز نص الرسالة
-        let message = `*طلب جديد من معلم الشام*%0a%0a`;
-        message += `*بيانات العميل:*%0a`;
-        message += `الاسم: ${name}%0a`;
-        message += `الجوال: ${phone}%0a`;
-        if (phone2) message += `جوال إضافي: ${phone2}%0a`;
-        if (details) message += `ملاحظات: ${details}%0a`;
+        let message = `📝 *طلب جديد*\n\n`;
         
-        // إضافة طريقة الدفع والاستلام
-        message += `طريقة الدفع: ${paymentMethod === 'cash' ? 'كاش' : 'شبكة'}%0a`;
-        message += `طريقة الاستلام: ${deliveryMethod === 'delivery' ? 'توصيل للمنزل' : 'استلام من الفرع'}%0a`;
-
-        // إضافة تفاصيل العنوان إذا كان التوصيل للمنزل
-        if (deliveryMethod === 'delivery') {
-            const district = document.getElementById('customerDistrict').value;
-            const street = document.getElementById('customerStreet').value;
-            
-            if (!district || !street) {
-                alert('الرجاء إدخال بيانات العنوان كاملة للتوصيل المنزلي');
-                return;
+        // معلومات العميل
+        message += `👤 *معلومات العميل:*\n`;
+        message += `الاسم: ${name}\n`;
+        message += `📱 الجوال: ${phone}\n`;
+        if (phone2) message += `📱 جوال إضافي: ${phone2}\n`;
+        
+        // معلومات الطلب
+        message += `\n🛒 *الطلبات:*\n`;
+        message += `━━━━━━━━━━━━━━\n`;
+        cart.forEach((item, index) => {
+            const total = (item.price * item.quantity).toFixed(2);
+            if (item.isFreeItem) {
+                message += `${index + 1}. ${item.name} (هدية)\n`;
+                message += `   الكمية: ${item.quantity}\n`;
+            } else {
+                message += `${index + 1}. ${item.name}\n`;
+                message += `   الكمية: ${item.quantity} × ${item.price} = ${total} ر.س\n`;
             }
-            
-            message += `الحي: ${district}%0a`;
-            message += `الشارع: ${street}%0a`;
-        }
-        
-        message += `%0a*تفاصيل الطلب:*%0a`;
-        cart.forEach(item => {
-            message += `${item.name} × ${item.quantity} = ${(item.price * item.quantity).toFixed(2)} ريال%0a`;
+            message += `┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄\n`;
         });
         
-        // إضافة معلومات الخصم للرسالة
-        if (activeDiscount > 0) {
-            const subtotal = parseFloat(subtotalElement.textContent);
-            const discountAmount = (subtotal * activeDiscount) / 100;
-            const appliedCoupon = discountCodeInput.value.trim();
-            
-            // تحديث عدد مرات استخدام الكود عند إرسال الطلب
-            couponUsage[appliedCoupon] = (couponUsage[appliedCoupon] || 0) + 1;
-            localStorage.setItem('couponUsage', JSON.stringify(couponUsage));
-            
-            const couponUseCount = couponUsage[appliedCoupon];
-            
-            message += `%0a*معلومات الخصم:*%0a`;
-            message += `كود الخصم المستخدم: ${appliedCoupon}%0a`;
-            message += `عدد مرات استخدام الكود: ${couponUseCount}%0a`;
-            message += `قيمة الخصم: ${discountAmount.toFixed(2)} ريال%0a`;
-        }
+        // ملخص الطلب
+        message += `\n💰 *ملخص الحساب:*\n`;
+        const subtotal = parseFloat(subtotalElement.textContent);
+        message += `المجموع: ${subtotal.toFixed(2)} ر.س\n`;
         
-        message += `%0a*المجموع النهائي: ${finalTotalElement.textContent}*`;
+        if (activeDiscount > 0) {
+            const discountAmount = (subtotal * activeDiscount) / 100;
+            message += `الخصم: -${discountAmount.toFixed(2)} ر.س\n`;
+        }
 
-        // فتح الواتساب مع الرسالة المجهزة
+        if (deliveryMethod === 'delivery') {
+            message += `رسوم التوصيل: ${deliveryFee.toFixed(2)} ر.س\n`;
+            const district = document.getElementById('customerDistrict').value;
+            const street = document.getElementById('customerStreet').value;
+            message += `\n📍 *العنوان:*\n`;
+            message += `الحي: ${district}\n`;
+            message += `الشارع: ${street}\n`;
+        }
+
+        const finalTotal = parseFloat(finalTotalElement.textContent);
+        message += `\n💳 *الإجمالي النهائي: ${finalTotal.toFixed(2)} ر.س*\n`;
+        
+        // طريقة الدفع
+        message += `\n💵 *طريقة الدفع:* ${paymentMethod === 'cash' ? 'نقداً' : 'شبكة'}\n`;
+        
+        // طريقة الاستلام
+        message += `\n🛵 *طريقة الاستلام:* ${deliveryMethod === 'delivery' ? 'توصيل' : 'استلام من المحل'}\n`;
+        
+        if (details) {
+            message += `\n📝 *ملاحظات:*\n${details}\n`;
+        }
+
+        message += `\n✨ شكراً لاختياركم معلم الشام`;
+
+        // استبدال جميع المسافات الجديدة بـ %0a للواتساب
+        message = message.replace(/\n/g, '%0a');
+
         window.open(`https://wa.me/966594872016?text=${message}`);
         
         // تفريغ السلة بعد إرسال الطلب
@@ -493,5 +515,8 @@ document.addEventListener('DOMContentLoaded', () => {
         discountCodeInput.value = '';
         updateCart();
         closeCartSidebar();
+        
+        // إظهار رسالة نجاح
+        showCartMessage('تم إرسال طلبك بنجاح!', 'success');
     });
 });

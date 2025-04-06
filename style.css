@@ -967,7 +967,7 @@ section h2::after {
 }
 
 .offer-description {
-    color: var(--text-secondary);
+    color: var (--text-secondary);
     margin-bottom: 1rem;
     line-height: 1.6;
 }

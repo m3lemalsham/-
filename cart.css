@@ -153,6 +153,7 @@
     object-fit: cover;
 }
 
+/* تحديث تنسيقات عناصر السلة */
 .item-info {
     display: flex;
     flex-direction: column;
@@ -175,22 +176,6 @@
 .item-info .item-quantity {
     color: #666;
     font-size: 0.9rem;
-}
-
-.item-calories {
-    color: #666;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.item-calories::before {
-    content: '\f0e7';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    color: #ff6b6b;
-    font-size: 0.8rem;
 }
 
 .total-calories {
@@ -227,6 +212,27 @@
     border-radius: 8px;
     color: #2c3e50;
     font-size: 1.1rem;
+}
+
+/* تنسيق رسوم التوصيل */
+.delivery-fee {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    color: #666;
+    font-size: 0.95rem;
+    border-top: 1px dashed #eee;
+}
+
+.delivery-fee.free {
+    color: #4CAF50;
+}
+
+.delivery-fee-explanation {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 4px;
+    text-align: right;
 }
 
 /* قسم كود الخصم */
