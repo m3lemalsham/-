@@ -786,10 +786,23 @@ function generateContestCode() {
     return `${prefix}${timestamp}${randomNum}`;
 }
 
+// متغير للتحكم في حالة الاختبار - غير هذه القيمة إلى true لإعادة تشغيل الاختبار
+const QUIZ_ENABLED = false;
+
 // إضافة مستمع لتحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
-    // التأكد من أن كل العناصر موجودة عند بدء التطبيق
-    loadProgress();
+    if (!QUIZ_ENABLED) {
+        document.querySelector('.quiz-container').innerHTML = `
+            <div style="text-align: center; padding: 20px; margin: 20px; background-color: #000000ff; border: 1px solid #ffeeba; border-radius: 5px;">
+                <h2 style="color: #856404;"><i class="fas fa-exclamation-triangle"></i> تنبيه</h2>
+                <p style="font-size: 18px; margin: 15px 0;">المسابقة متوقفة مؤقتاً للتحديث والتطوير.</p>
+                <p style="font-size: 16px;">سيتم إعادة تشغيل المسابقة قريباً مع جوائز وعروض جديدة.</p>
+                <p style="font-size: 14px; margin-top: 15px;">شكراً لتفهمكم.</p>
+                <a href="index.html" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">العودة للصفحة الرئيسية</a>
+            </div>
+        `;
+        return;
+    }
     initializeQuiz();
 });
 
